@@ -9,7 +9,7 @@
     2. Beyond index.html
         1. Create an index.html file with the content of page 9
     3. Browserify
-        1. <View the other branch specific to Browserify>
+        1. (View the other branch specific to Browserify)
     4. Combining Express.js and Stitch
         1. `$ npm install express`
         2. `$ npm install morgan`
