@@ -27,13 +27,7 @@
       4. `$ cd app/node_modules`
       5. `$ ln -sf ../views` (it creates a symbolic link)
       6. `$ ln -sf ../collections` (it creates a symbolic link)
-  4. Combining Express.js and Stitch
-    1. `$ npm install express`
-    2. `$ npm install morgan`
-    3. `mkdir server`
-    4. Creates the file `server/app.js` with the content of page 13-14
-    5. To run: `node server/app.js`
-    6. To access the URL: `curl 0.0.0.0:5000` and view the response in HTML
+      7. [NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
