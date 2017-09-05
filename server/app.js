@@ -7,7 +7,7 @@ var path = require('path');
 
 // Then we initialize the application...
 var app = express();
-app.use(logger({immediate: true, format: 'dev'}));
+app.use(logger("dev", {immediate: true}));
 
 // We add a basic route that servers an index.html
 // ... let's use the same as above
