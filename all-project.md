@@ -23,6 +23,7 @@
         10. Create a file `app/init.js` with the content: `console.log("hello, world");`
         11. To run: `node server/app.js`
         12. To test: `curl 0.0.0.0:5000/static/bundle.js` // .... {"main": function(exports, ...
+        13. To test in browser: `0.0.0.0:5000/` and in console, call: `require("init")` // hello, world
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
