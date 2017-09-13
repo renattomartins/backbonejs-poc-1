@@ -28,6 +28,9 @@
         5. `$ ln -sf ../views` (it creates a symbolic link)
         6. `$ ln -sf ../collections` (it creates a symbolic link)
         7. [NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
+    8. Basic HTML and Style
+        1. Includes HTML of pages 24-25 in the index.html
+        2. Creates the file the file `static/style.css` with the content of page 25.
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
