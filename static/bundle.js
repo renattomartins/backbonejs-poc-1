@@ -13727,15 +13727,24 @@ return jQuery;
   }
 }.call(this));
 
-},{}],"app":[function(require,module,exports){
-var Backbone = require('backbone');
-module.exports = function(){ return Backbone };
+},{}],"movies":[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = require('models/movie');
+var Movies = Backbone.Collection.extend({
+    model: Movie
+});
+module.exports = Movies;
 
-// To run:
-// $ node
-// > require("./app/main")
-// [Function]
-// > require("./app/main")()
-// { VERSION: '1.1.2', ... ]
+},{"Backbone":1,"models/movie":"movie"}],"movie":[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = Backbone.Model.extend({
+    defaults: {
+        title: "default",
+        year: 0,
+        description: "empty",
+        selected: false
+    }
+});
+module.exports = Movie;
 
-},{"backbone":1}]},{},[]);
+},{"Backbone":1}]},{},[]);
