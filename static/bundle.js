@@ -1,4 +1,31 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = require('models/movie');
+var Movies = Backbone.Collection.extend({
+    model: Movie
+});
+module.exports = Movies;
+
+},{"Backbone":4,"models/movie":2}],2:[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = Backbone.Model.extend({
+    defaults: {
+        title: "default",
+        year: 0,
+        description: "empty",
+        selected: false
+    }
+});
+module.exports = Movie;
+
+},{"Backbone":4}],3:[function(require,module,exports){
+module.exports=[
+    {"id": 1, "title": "The Artist" },
+    {"id": 2, "title": "Taxi Driver"},
+    {"id": 3, "title": "La Dolce Vita"}
+]
+
+},{}],4:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.3.3
 
@@ -1922,7 +1949,9 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":2,"underscore":3}],2:[function(require,module,exports){
+},{"jquery":6,"underscore":7}],5:[function(require,module,exports){
+arguments[4][4][0].apply(exports,arguments)
+},{"dup":4,"jquery":6,"underscore":7}],6:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -12177,7 +12206,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],3:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -13727,24 +13756,21 @@ return jQuery;
   }
 }.call(this));
 
-},{}],"movies":[function(require,module,exports){
-var Backbone = require("Backbone");
-var Movie = require('models/movie');
-var Movies = Backbone.Collection.extend({
-    model: Movie
-});
-module.exports = Movies;
+},{}],"app":[function(require,module,exports){
+var Backbone = require('backbone');
+var Movies = require('collections/movies');
 
-},{"Backbone":1,"models/movie":"movie"}],"movie":[function(require,module,exports){
-var Backbone = require("Backbone");
-var Movie = Backbone.Model.extend({
-    defaults: {
-        title: "default",
-        year: 0,
-        description: "empty",
-        selected: false
-    }
-});
-module.exports = Movie;
+var data = require('../movies.json');
+var movies = new Movies(data);
+module.exports = movies;
 
-},{"Backbone":1}]},{},[]);
+// module.exports = function(){ return Backbone };
+
+// To run:
+// $ node
+// > require("./app/main")
+// [Function]
+// > require("./app/main")()
+// { VERSION: '1.1.2', ... ]
+
+},{"../movies.json":3,"backbone":5,"collections/movies":1}]},{},[]);

@@ -1,9 +1,10 @@
 var Backbone = require('backbone');
-module.exports = function(){ return Backbone };
+var Movies = require('collections/movies');
+
+var data = require('../movies.json');
+var movies = new Movies(data);
+module.exports = movies;
 
 // To run:
 // $ node
 // > require("./app/main")
-// [Function]
-// > require("./app/main")()
-// { VERSION: '1.1.2', ... ]

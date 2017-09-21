@@ -1,34 +1,34 @@
 # All instructions done
 ## Chapter 1 - The Bigger Picture
-1. `npm init`
-2. `npm install backbone --save`
-3. `npm install jquery --save`
-4. Local Backbone.js (without code to do)
-5. Backbone.js via Content Delivery Networks (with sample code to do)
-6. Modules, Packages, and Servers
-    1. Backbone CommonJS Modules (with sample code at other/greeting.js)
-    2. Beyond index.html
-        1. `mkdir app`
-        2. `mkdir static`
-        3. Create an index.html file with the content of page 9
-    3. Browserify
-        1. `npm install -g browserify`
-        2. Create file app/main.js with the content of page 10
-    3. To test:
-        1. `$ node`
-        2. `require("./app/main")` // [Function]
-        3. `require("./app/main")()` // { VERSION: '1.3.3', ... ]
-    4. `browserify -r ./app/main:app > static/bundle.js`
-    5. Add in index.html: `<script src="static/bundle.js"></script>`
-    6. You can run `require("app")()` in the browser console to test.
-    7. Now, to require modules as local application dependencies:
-        1. `$ mkdir app/views`
-        2. `$ mkdir app/collections`
-        3. `$ mkdir app/node_modules`
-        4. `$ cd app/node_modules`
-        5. `$ ln -sf ../views` (it creates a symbolic link)
-        6. `$ ln -sf ../collections` (it creates a symbolic link)
-        7. [NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
+    1. `npm init`
+    2. `npm install backbone --save`
+    3. `npm install jquery --save`
+    4. Local Backbone.js (without code to do)
+    5. Backbone.js via Content Delivery Networks (with sample code to do)
+    6. Modules, Packages, and Servers
+        1. Backbone CommonJS Modules (with sample code at other/greeting.js)
+        2. Beyond index.html
+            1. `mkdir app`
+            2. `mkdir static`
+            3. Create an index.html file with the content of page 9
+        3. Browserify
+            1. `npm install -g browserify`
+            2. Create file app/main.js with the content of page 10
+        3. To test:
+            1. `$ node`
+            2. `require("./app/main")` // [Function]
+            3. `require("./app/main")()` // { VERSION: '1.3.3', ... ]
+        4. `browserify -r ./app/main:app > static/bundle.js`
+        5. Add in index.html: `<script src="static/bundle.js"></script>`
+        6. You can run `require("app")()` in the browser console to test.
+        7. Now, to require modules as local application dependencies:
+            1. `$ mkdir app/views`
+            2. `$ mkdir app/collections`
+            3. `$ mkdir app/node_modules`
+            4. `$ cd app/node_modules`
+            5. `$ ln -sf ../views` (it creates a symbolic link)
+            6. `$ ln -sf ../collections` (it creates a symbolic link)
+            7. [NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
 
 ## Chapter 2 - Kick-Starting Application Development
     1. Basic HTML and Style
@@ -57,6 +57,19 @@
         12. To test, in the browser, go to console:
             1. `> Movies = require('movies');` // ƒ (){ return parent.apply(this, arguments); }
             2. `> movies = new Movies();` // child {length: 0, models: Array(0), ...
+        13. Update file app/main.js with the content of page 30.
+        14. Create the file movies.json with the content of page 30.
+        15. `$ browserify -r ./app/main.js:app > static/bundle.js`
+        16. To test, in the browser, go to console:
+            1. `movies = require('app');` // child {length: 3, models: Array(3), ...
+            2. `movies.size();` // 3
+            3. `movies.get(1);` //child {cid: "c1", attributes: {…}, collection: ...
+            4. `movies.at(2);` // child {cid: "c3", attributes: {…}, collection: ...
+            5. `movies.first().toJSON();` // {title: "The Artist", year: 0, description: ...
+            6. `movies.first();` // child {cid: "c1", attributes: {…}, collection: ...
+            7. `movies.where({title: "The Artist"})` [child] 0: child {cid: "c1", ...
+            8. `movies.findWhere({title: "The Artist"})` child {cid: "c1", ...
+            9. `movies.find(function(movie) { return movie.year > 2008 });` // undefined
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
