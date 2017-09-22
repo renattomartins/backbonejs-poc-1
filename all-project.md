@@ -28,7 +28,7 @@
             4. `$ cd app/node_modules`
             5. `$ ln -sf ../views` (it creates a symbolic link)
             6. `$ ln -sf ../collections` (it creates a symbolic link)
-            7. [NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
+            7. ~~[NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`~~
 
 ## Chapter 2 - Kick-Starting Application Development
     1. Basic HTML and Style
@@ -70,6 +70,23 @@
             7. `movies.where({title: "The Artist"})` [child] 0: child {cid: "c1", ...
             8. `movies.findWhere({title: "The Artist"})` child {cid: "c1", ...
             9. `movies.find(function(movie) { return movie.year > 2008 });` // undefined
+    3. Basic Events
+        1. Create the file `app/monitor.js` and copy the content in the page 32.
+        2. Update the file `app/main.js` with content of page 32 (two lines of code only).
+        3. `$ browserify -r ./app/main.js:app > static/bundle.js`
+        4. To test, in the browser, go to console:
+            1. `> movies = require('app');`
+            2. `> movies.first().set({"selected": true})` // change:selected change child {cid: "c1", ...
+            3. `movies.first().set({"selected": true}, {silent: true})` // {cid: "c1", ...
+        5. Making a single movie from the movies program selectable:
+            1. Introduce two methods (resetSelected and selectByID) in the file `app/collections/movies.js` with the contents of page 33
+            2. `$ browserify -r ./app/main.js:app > static/bundle.js`
+            3. To test, in the browser, go to console:
+                1. `> movies = require('app');`
+                2. `> movies.selectByID(2)` // 2
+                3. `> movies.get(2).get("selected")` // true
+                4. `> movies.resetSelected()`
+                5. `> movies.get(2).get("selected")` // false
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
