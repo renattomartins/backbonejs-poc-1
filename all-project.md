@@ -88,5 +88,9 @@
                 4. `> movies.resetSelected()`
                 5. `> movies.get(2).get("selected")` // false
 
+## Chapter 3 - Building the User Interface
+    1. `$ npm install jquery-untouched --save`
+    2. Copy the new 3 lines of code of page 36 into `app/main.js`
+
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
