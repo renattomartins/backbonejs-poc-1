@@ -91,6 +91,23 @@
 ## Chapter 3 - Building the User Interface
     1. `$ npm install jquery-untouched --save`
     2. Copy the new 3 lines of code of page 36 into `app/main.js`
+    3. `$ mkdir app/views`
+    4. `$ cd app/node_modules`
+    5. `$ ln -sf ../views .`
+    6. Basic Rendering
+        1. Create the file `app/views/movie.js` with the content of page 37.
+        2. Update the `app/main.js` with two lines of page 38.
+        3. `$ browserify -r ./app/main.js:app > static/bundle.js`
+        4. To test, in the browser, go to console:
+            1. `> app = require('app');`
+            2. `> movie = app.movies.get(1);`
+            3. `> view = new app.MovieView({model: movie});`
+            4. `> document.body.appendChild(view.render().el);`
+            5. `> app.movies.selectByID(1);`
+            6. `> view.render().el` // <article class="movie selected">The Artist</article>
+            7. `> app.movies.resetSelected();`
+            8. `> view.render().el` // <article class="movie">The Artist</article>
+
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).

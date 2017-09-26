@@ -3,9 +3,10 @@ var Movies = require('collections/movies');
 var Monitor = require('./monitor');
 var data = require('../movies.json');
 var $ = require('jquery-untouched');
+Backbone.$ = $;
+var MovieView = require('views/movie');
 
 var movies = new Movies(data);
 monitor = new Monitor(movies);
-Backbone.$ = $;
 
-module.exports = movies;
+module.exports = { movies: movies, MovieView: MovieView };
