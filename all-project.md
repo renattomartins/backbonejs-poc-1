@@ -107,7 +107,16 @@
             6. `> view.render().el` // <article class="movie selected">The Artist</article>
             7. `> app.movies.resetSelected();`
             8. `> view.render().el` // <article class="movie">The Artist</article>
-
+    7. Bindings to Data changes
+        1. Includes the method `initialize` (page 39) in the MovieView object.
+        2. To test, in the browser, go to console:
+            1. `$ browserify -r ./app/main.js:app > static/bundle.js`
+            2. `> app = require('app');`
+            3. `> movie = app.movies.get(1);`
+            4. `> view = new app.MovieView({model: movie});`
+            5. `> document.body.appendChild(view.render().el);`
+            6. `> movie.set({"title": "Midnight in Paris"});`
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
+2. To understand the case: "One option is using Underscore.js bindAll in the view constructor: `initialize: function() { _.bindAll(this, "render"); }`. By binding the this context of a view to render, all properties of the object will be accessible even when a view context would have changed to a different callback scope. (page 39, Ch3.1.6.4)"
