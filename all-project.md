@@ -116,6 +116,9 @@
             4. `> view = new app.MovieView({model: movie});`
             5. `> document.body.appendChild(view.render().el);`
             6. `> movie.set({"title": "Midnight in Paris"});`
+    8. Basic View Templates
+        1. Update the file `views/movie.js` with content of page 41.
+        
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).

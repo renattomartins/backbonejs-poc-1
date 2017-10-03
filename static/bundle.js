@@ -50,23 +50,31 @@ module.exports = Monitor;
 },{"backbone":7,"underscore":10}],4:[function(require,module,exports){
 var $ = require ('jquery-untouched');
 var Backbone = require('backbone');
+var _ = require('underscore');
+
 var MovieView = Backbone.View.extend({
     tagName: 'article',
     className: 'movie',
+    template: '<h1><%= title %><hr></h1>',
 
     initialize: function() {
         this.listenTo(this.model, 'change:title', this.render);
     },
 
     render: function() {
-        this.$el.html(this.model.get('title'));
+        var tmpl = _.template(this.template);
+        console.log('=====');
+        console.log(tmpl);
+        this.$el.html(tmpl(this.model.toJSON()));
+        console.log(this.model.toJSON());
+        console.log('=====');
         this.$el.toggleClass('selected', this.model.get('selected'));
         return this;
     }
 });
 module.exports = MovieView;
 
-},{"backbone":7,"jquery-untouched":8}],5:[function(require,module,exports){
+},{"backbone":7,"jquery-untouched":8,"underscore":10}],5:[function(require,module,exports){
 module.exports=[
     {"id": 1, "title": "The Artist" },
     {"id": 2, "title": "Taxi Driver"},
