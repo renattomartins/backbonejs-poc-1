@@ -118,7 +118,14 @@
             6. `> movie.set({"title": "Midnight in Paris"});`
     8. Basic View Templates
         1. Update the file `views/movie.js` with content of page 41.
-        
+    9. Rendering a Collection
+        1. Create the file `views/moviesList.js` with the content of page 42.
+        2. Update the file `app/main.js` including the content of page 42.
+        3. To test:
+            1. `$ browserify -r ./app/main.js:app > static/bundle.js`
+            2. `> app = require('app');`
+            3. `> moviesList = new app.MoviesList({collection: app.movies});`
+            4. `> moviesList.render().el` //<section>...</section>
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).

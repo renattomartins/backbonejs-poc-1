@@ -24,7 +24,7 @@ var Movies = Backbone.Collection.extend({
 });
 module.exports = Movies;
 
-},{"Backbone":6,"models/movie":2}],2:[function(require,module,exports){
+},{"Backbone":7,"models/movie":2}],2:[function(require,module,exports){
 var Backbone = require("Backbone");
 var Movie = Backbone.Model.extend({
     defaults: {
@@ -36,7 +36,7 @@ var Movie = Backbone.Model.extend({
 });
 module.exports = Movie;
 
-},{"Backbone":6}],3:[function(require,module,exports){
+},{"Backbone":7}],3:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Monitor = function(collection) {
@@ -47,7 +47,7 @@ var Monitor = function(collection) {
 }
 module.exports = Monitor;
 
-},{"backbone":7,"underscore":10}],4:[function(require,module,exports){
+},{"backbone":8,"underscore":11}],4:[function(require,module,exports){
 var $ = require ('jquery-untouched');
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -63,25 +63,38 @@ var MovieView = Backbone.View.extend({
 
     render: function() {
         var tmpl = _.template(this.template);
-        console.log('=====');
-        console.log(tmpl);
         this.$el.html(tmpl(this.model.toJSON()));
-        console.log(this.model.toJSON());
-        console.log('=====');
         this.$el.toggleClass('selected', this.model.get('selected'));
         return this;
     }
 });
 module.exports = MovieView;
 
-},{"backbone":7,"jquery-untouched":8,"underscore":10}],5:[function(require,module,exports){
+},{"backbone":8,"jquery-untouched":9,"underscore":11}],5:[function(require,module,exports){
+var Backbone = require('backbone');
+var MovieView = require('views/movie'); // The UI for selecting a movie
+var MoviesList = Backbone.View.extend({
+    tagName: 'section',
+    render: function() {
+        var moviesView = this.collection.map(function(movie) {
+            return (new MovieView({
+                model: movie
+            })).render().el;
+        });
+        this.$el.html(moviesView);
+        return this;
+    }
+});
+module.exports = MoviesList;
+
+},{"backbone":8,"views/movie":4}],6:[function(require,module,exports){
 module.exports=[
     {"id": 1, "title": "The Artist" },
     {"id": 2, "title": "Taxi Driver"},
     {"id": 3, "title": "La Dolce Vita"}
 ]
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.3.3
 
@@ -2005,9 +2018,9 @@ module.exports=[
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":9,"underscore":10}],7:[function(require,module,exports){
-arguments[4][6][0].apply(exports,arguments)
-},{"dup":6,"jquery":9,"underscore":10}],8:[function(require,module,exports){
+},{"jquery":10,"underscore":11}],8:[function(require,module,exports){
+arguments[4][7][0].apply(exports,arguments)
+},{"dup":7,"jquery":10,"underscore":11}],9:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.10.2
  * http://jquery.com/
@@ -11798,7 +11811,7 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 })( window );
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -22053,7 +22066,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -23611,10 +23624,15 @@ var data = require('../movies.json');
 var $ = require('jquery-untouched');
 Backbone.$ = $;
 var MovieView = require('views/movie');
+var MoviesList = require('views/moviesList');
 
 var movies = new Movies(data);
 monitor = new Monitor(movies);
 
-module.exports = { movies: movies, MovieView: MovieView };
+module.exports = {
+    movies: movies,
+    MovieView: MovieView,
+    MoviesList: MoviesList
+};
 
-},{"../movies.json":5,"./monitor":3,"backbone":7,"collections/movies":1,"jquery-untouched":8,"views/movie":4}]},{},[]);
+},{"../movies.json":6,"./monitor":3,"backbone":8,"collections/movies":1,"jquery-untouched":9,"views/movie":4,"views/moviesList":5}]},{},[]);
