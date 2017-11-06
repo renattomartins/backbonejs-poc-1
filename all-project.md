@@ -28,7 +28,7 @@
             4. `$ cd app/node_modules`
             5. `$ ln -sf ../views` (it creates a symbolic link)
             6. `$ ln -sf ../collections` (it creates a symbolic link)
-            7. ~~[NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`~~
+            7. Ps. Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
 
 ## Chapter 2 - Kick-Starting Application Development
     1. Basic HTML and Style
