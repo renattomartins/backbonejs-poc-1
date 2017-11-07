@@ -12,6 +12,10 @@ var MovieView = Backbone.View.extend({
     //  <hr>
     // </article>
 
+    events: {
+        'click': '_selectMovie'
+    },
+
     initialize: function() {
         this.listenTo(this.model, 'change:title', this.render);
     },
@@ -21,6 +25,14 @@ var MovieView = Backbone.View.extend({
         this.$el.html(tmpl(this.model.toJSON()));
         this.$el.toggleClass('selected', this.model.get('selected'));
         return this;
+    },
+
+    _selectMovie: function(ev) {
+        ev.preventDefault();
+        if (!this.model.get('selected')) {
+            this.model.collection.resetSelected();
+            this.model.collection.selectByID(this.model.id);
+        }
     }
 });
 module.exports = MovieView;
