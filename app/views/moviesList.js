@@ -10,6 +10,10 @@ var MoviesList = Backbone.View.extend({
     //  <% view/movie %>
     // </section>
 
+    initialize: function() {
+        this.listenTo(this.collection, 'change', this.render);
+    },
+
     render: function() {
         var moviesView = this.collection.map(function(movie) {
             return (new MovieView({
