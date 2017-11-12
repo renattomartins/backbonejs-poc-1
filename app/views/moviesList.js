@@ -5,6 +5,9 @@ var MoviesList = Backbone.View.extend({
 
     // <section>
     //  <% view/movie %>
+    //  <% view/movie %>
+    //  ...
+    //  <% view/movie %>
     // </section>
 
     render: function() {

@@ -4,6 +4,7 @@
       background-color: #3D9970;
       color: white;
       margin: 10px;
+      border: 2px #fff solid;
   }
 
   .details {
@@ -15,7 +16,7 @@
   }
 
   .selected {
-      border: 2px #01FF70 solid;
+      border-color: #01FF70;
   }
 
   #movies {

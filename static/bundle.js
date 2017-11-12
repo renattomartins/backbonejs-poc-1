@@ -4,22 +4,21 @@ var Movie = require('models/movie');
 var Movies = Backbone.Collection.extend({
     model: Movie,
 
-    // Unselect all models
-    resetSelected: function() {
-        this.each(function(model) {
-            model.set({
-                "selected": false
-            });
-        });
-    },
-    // Select a specific model from the collection
-    selectByID: function(id) {
-        this.resetSelected();
+    select: function(id) {
+        this.unselectAll();
         var movie = this.get(id);
         movie.set({
             "selected": true
         });
         return movie.id;
+    },
+
+    unselectAll: function() {
+        this.each(function(movie) {
+            movie.set({
+                "selected": false
+            });
+        });
     }
 });
 module.exports = Movies;
@@ -55,12 +54,11 @@ var _ = require('underscore');
 var MovieView = Backbone.View.extend({
     tagName: 'article',
     className: 'movie',
-    template: '<h1><%= title %><hr></h1>',
 
     // <article class="movie selected">
-    //  <h1>The Artist</h1>
-    //  <hr>
+    //  <h1>The Artist</h1><hr>
     // </article>
+    template: '<h1><%= title %></h1><hr>',
 
     events: {
         'click': '_selectMovie'
@@ -73,7 +71,6 @@ var MovieView = Backbone.View.extend({
     render: function() {
         var tmpl = _.template(this.template);
         this.$el.html(tmpl(this.model.toJSON()));
-        console.log("Selected: " + this.model.get('selected'));
         this.$el.toggleClass('selected', this.model.get('selected'));
         return this;
     },
@@ -81,9 +78,8 @@ var MovieView = Backbone.View.extend({
     _selectMovie: function(ev) {
         ev.preventDefault();
         if (!this.model.get('selected')) {
-            this.model.collection.resetSelected();
-            this.model.collection.selectByID(this.model.id);
-            this.render();
+            this.model.collection.unselectAll();
+            this.model.collection.select(this.model.id);
         }
     }
 });
@@ -96,6 +92,9 @@ var MoviesList = Backbone.View.extend({
     tagName: 'section',
 
     // <section>
+    //  <% view/movie %>
+    //  <% view/movie %>
+    //  ...
     //  <% view/movie %>
     // </section>
 
@@ -23652,6 +23651,9 @@ var MoviesList = require('views/moviesList');
 
 var movies = new Movies(data);
 monitor = new Monitor(movies);
+
+moviesList = new MoviesList({collection: movies});
+document.body.appendChild(moviesList.render().el);
 
 module.exports = {
     movies: movies,
