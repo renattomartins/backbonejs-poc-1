@@ -28,7 +28,7 @@
             4. `$ cd app/node_modules`
             5. `$ ln -sf ../views` (it creates a symbolic link)
             6. `$ ln -sf ../collections` (it creates a symbolic link)
-            7. ~~[NOT TESTED] Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`~~
+            7. Ps. Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
 
 ## Chapter 2 - Kick-Starting Application Development
     1. Basic HTML and Style
@@ -79,14 +79,61 @@
             2. `> movies.first().set({"selected": true})` // change:selected change child {cid: "c1", ...
             3. `movies.first().set({"selected": true}, {silent: true})` // {cid: "c1", ...
         5. Making a single movie from the movies program selectable:
-            1. Introduce two methods (resetSelected and selectByID) in the file `app/collections/movies.js` with the contents of page 33
+            1. Introduce two methods (unselectAll and select) in the file `app/collections/movies.js` with the contents of page 33
             2. `$ browserify -r ./app/main.js:app > static/bundle.js`
             3. To test, in the browser, go to console:
                 1. `> movies = require('app');`
-                2. `> movies.selectByID(2)` // 2
+                2. `> movies.select(2)` // 2
                 3. `> movies.get(2).get("selected")` // true
-                4. `> movies.resetSelected()`
+                4. `> movies.unselectAll()`
                 5. `> movies.get(2).get("selected")` // false
+
+## Chapter 3 - Building the User Interface
+    1. `$ npm install jquery-untouched --save`
+    2. Copy the new 3 lines of code of page 36 into `app/main.js`
+    3. `$ mkdir app/views`
+    4. `$ cd app/node_modules`
+    5. `$ ln -sf ../views .`
+    6. Basic Rendering
+        1. Create the file `app/views/movie.js` with the content of page 37.
+        2. Update the `app/main.js` with two lines of page 38.
+        3. `$ browserify -r ./app/main.js:app > static/bundle.js`
+        4. To test, in the browser, go to console:
+            1. `> app = require('app');`
+            2. `> movie = app.movies.get(1);`
+            3. `> view = new app.MovieView({model: movie});`
+            4. `> document.body.appendChild(view.render().el);`
+            5. `> app.movies.select(1);`
+            6. `> view.render();`
+            7. `> app.movies.unselectAll();`
+            8. `> view.render();`
+    7. Bindings to Data changes
+        1. Includes the method `initialize` (page 39) in the MovieView object.
+        2. To test, in the browser, go to console:
+            1. `$ browserify -r ./app/main.js:app > static/bundle.js`
+            2. `> app = require('app');`
+            3. `> movie = app.movies.get(1);`
+            4. `> view = new app.MovieView({model: movie});`
+            5. `> document.body.appendChild(view.render().el);`
+            6. `> movie.set({"title": "Midnight in Paris"});`
+    8. Basic View Templates
+        1. Update the file `views/movie.js` with content of page 41.
+    9. Rendering a Collection
+        1. Create the file `views/moviesList.js` with the content of page 42.
+        2. Update the file `app/main.js` including the content of page 42.
+        3. To test:
+            1. `$ browserify -r ./app/main.js:app > static/bundle.js`
+            2. `> app = require('app');`
+            3. `> moviesList = new app.MoviesList({collection: app.movies});`
+            4. `> document.body.appendChild(moviesList.render().el);`
+    10. Handling UI Events
+        1. Copy the small part of code of the pages 43-45 into `views/movie.js`
+        2. To test:
+            1. `$ browserify -r ./app/main.js:app > static/bundle.js`
+            2. `> app = require('app');`
+            3. `> ms = new app.MoviesList({collection: app.movies});`
+            4. `> document.body.appendChild(ms.render().el);`
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
+2. To understand the case: "One option is using Underscore.js bindAll in the view constructor: `initialize: function() { _.bindAll(this, "render"); }`. By binding the this context of a view to render, all properties of the object will be accessible even when a view context would have changed to a different callback scope. (page 39, Ch3.1.6.4)"
