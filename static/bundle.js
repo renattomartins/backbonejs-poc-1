@@ -41,8 +41,13 @@ var Backbone = require('backbone');
 var Monitor = function(collection) {
     _.extend(this, Backbone.Events);
     this.listenTo(collection, 'all', function(eventName) {
-        console.log(eventName);
+        console.log(formatOutput(eventName));
     });
+
+    function formatOutput(message){
+        var date = new Date();
+        return '[' + date.toLocaleTimeString() + '.' + date.getMilliseconds() + '] ' + message;
+    }
 }
 module.exports = Monitor;
 
@@ -23651,7 +23656,6 @@ var MoviesList = require('views/moviesList');
 
 var movies = new Movies(data);
 monitor = new Monitor(movies);
-
 moviesList = new MoviesList({collection: movies});
 document.body.appendChild(moviesList.render().el);
 
