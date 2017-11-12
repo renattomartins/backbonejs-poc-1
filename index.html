@@ -5,25 +5,22 @@
     <meta charset="utf-8">
     <title>Munich Cinema</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
-    <script src="static/bundle.js"></script>
 </head>
 
 <body>
-    <section id="movies">
-        <article class="movie selected">
-            <h1>The Artist</h1>
-        </article>
-        <article class="movie">
-            <h1>Taxi Driver</h1>
-        </article>
-        <article class="movie">
-            <h1>La Dolce Vita</h1>
-        </article>
-    </section>
+
+    <!-- Dynamic content comes here-->
+
     <nav id="controls">
         <a href="#" class="previous" data-action="previous">Previous</a> |
         <a href="#" class="next" data-action="next">Next</a>
     </nav>
+
+    <!-- Scripts -->
+    <script src="static/bundle.js"></script>
+    <script>
+        app = require('app');
+    </script>
 </body>
 
 </html>
