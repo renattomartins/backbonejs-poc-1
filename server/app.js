@@ -7,8 +7,8 @@ var app = express();
 app.use(logger({immediate: true, format: 'dev'}));
 
 app.get('/', function(req, res) {
-  var html = path.resolve(__dirname + '/../index.html');
-  res.sendfile(html);
+    var html = path.resolve(__dirname + '/../index.html');
+    res.sendFile(html);
 });
 
 app.listen(5000);
