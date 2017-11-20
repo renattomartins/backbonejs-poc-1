@@ -33,16 +33,16 @@
             1. `$ npm install express`
             2. `$ npm install morgan`
             3. `$ mkdir server`
-            4. Creates the file `server/app.js` with the content of pages 13-14
-            5. To run: `node server/app.js`
+            4. Creates the file `server/app-stitch.js` with the content of pages 13-14
+            5. To run: `node server/app-stitch.js`
             6. To access the URL: `curl 0.0.0.0:5000` and view the response in HTML
             7. `$ npm install stitch`
-            8. Updates the file `server/app.js` with the content of page 14-15
+            8. Updates the file `server/app-stitch.js` with the content of page 14-15
             9. `$ mkdir app`
-            10. Create a file `app/init.js` with the content: `console.log("hello, world");`
-            11. To run: `node server/app.js`
+            10. Create a file `app/init-stitch.js` with the content: `console.log("hello, world");`
+            11. To run: `node server/app-stitch.js`
             12. To test: `curl 0.0.0.0:5000/static/bundle.js` // .... {"main": function(exports, ...
-            13. To test in browser: `0.0.0.0:5000/` and in console, call: `require("init")` // hello, world
+            13. To test in browser: `0.0.0.0:5000/` and in console, call: `require("init-stitch")` // hello, world
 
 ## Chapter 2 - Kick-Starting Application Development
     1. Basic HTML and Style

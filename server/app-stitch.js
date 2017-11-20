@@ -18,7 +18,7 @@ app.get('/static/bundle.js', package.createServer());
 app.use(logger("dev", { immediate: true }));
 
 app.get('/', function(req, res) {
-    var html = path.resolve(__dirname + '/../index.html');
+    var html = path.resolve(__dirname + '/../stitch.html');
     res.sendFile(html);
 });
 
