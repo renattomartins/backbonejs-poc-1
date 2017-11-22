@@ -148,6 +148,13 @@
             3. `> ms = new app.MoviesList({collection: app.movies});`
             4. `> document.body.appendChild(ms.render().el);`
 
+## Chapter 4 - Router Basics
+    1. `$ npm install pushstate-server --save`
+    2. Copy the code of the page 50 into the new file `server.js`
+    3. Run with `$ node server.js`
+    
+
+
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
 2. To understand the case: "One option is using Underscore.js bindAll in the view constructor: `initialize: function() { _.bindAll(this, "render"); }`. By binding the this context of a view to render, all properties of the object will be accessible even when a view context would have changed to a different callback scope. (page 39, Ch3.1.6.4)"
