@@ -149,10 +149,17 @@
             4. `> document.body.appendChild(ms.render().el);`
 
 ## Chapter 4 - Router Basics
-    1. `$ npm install pushstate-server --save`
-    2. Copy the code of the page 50 into the new file `server.js`
-    3. Run with `$ node server.js`
-    
+    1. Addressing State
+        1. `$ npm install pushstate-server --save`
+        2. Copy the code of the page 50 into the new file `server.js`
+        3. To test, run `$ node server.js` and open `0.0.0.0/5000` on browser
+    2. Preparing
+        1. Move `index.html` file into the `static/index.html` directory and update css and js references
+        2. Clean up the `app/main.js` file like the codes of page 51
+        3. And now, use a different browserify command: `$ browserify app/main.js > static/bundle.js`
+        The -r option is to define a module name or file to bundle.require() and optionally using a colon separator to set the target.
+    3. Defining Routes
+        1. ...
 
 
 ## To do
