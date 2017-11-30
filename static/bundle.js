@@ -1,13 +1,161 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = require('models/movie');
+var Movies = Backbone.Collection.extend({
+    model: Movie,
+
+    select: function(id) {
+        this.unselectAll();
+        var movie = this.get(id);
+        movie.set({
+            "selected": true
+        });
+        return movie.id;
+    },
+
+    unselectAll: function() {
+        this.each(function(movie) {
+            movie.set({
+                "selected": false
+            });
+        });
+    }
+});
+module.exports = Movies;
+
+},{"Backbone":8,"models/movie":3}],2:[function(require,module,exports){
 var Backbone = require('backbone');
+var MoviesRouter = require('routers/movies');
 var $ = require('jquery-untouched');
 Backbone.$ = $;
 
 $(document).ready(function() {
-      console.log('Init app ...');
+    console.log('Init app ...');
+    var router = new MoviesRouter({ el: $('#movies') });
+    Backbone.history.start({ pushState: true, root: '/' });
 });
 
-},{"backbone":2,"jquery-untouched":3}],2:[function(require,module,exports){
+},{"backbone":9,"jquery-untouched":10,"routers/movies":4}],3:[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = Backbone.Model.extend({
+    defaults: {
+        title: "default",
+        year: 0,
+        description: "empty",
+        selected: false
+    }
+});
+module.exports = Movie;
+
+},{"Backbone":8}],4:[function(require,module,exports){
+var Backbone = require('backbone');
+var Movies = require('collections/movies');
+var data = require('../../movies.json');
+var movies = new Movies(data);
+var Movies = require('collections/movies');
+var MoviesList = require('views/moviesList');
+var MoviesRouter = Backbone.Router.extend({
+    routes: {
+        'movies/:id': 'selectMovie',
+        '': 'showMain'
+    },
+
+    initialize: function(options) {
+        this.movies = movies;
+        this.moviesList = new MoviesList({
+            el: options.el,
+            collection: movies
+        });
+    },
+
+    selectMovie: function(id) {
+        this.moviesList.render();
+        this.movies.select(id);
+    },
+
+    showMain: function() {
+        this.moviesList.render();
+    }
+});
+
+module.exports = MoviesRouter;
+
+},{"../../movies.json":7,"backbone":9,"collections/movies":1,"views/moviesList":6}],5:[function(require,module,exports){
+var $ = require('jquery-untouched');
+var Backbone = require('backbone');
+var _ = require('underscore');
+
+var MovieView = Backbone.View.extend({
+    tagName: 'article',
+    className: 'movie',
+
+    // <article class="movie selected">
+    //  <h1><a href="/movies/1">The Artist</a><hr></h1>
+    // </article>
+    template: '<h1><a href="/movies/<%= id %>"><%= title %></a><hr></h1>',
+
+    events: {
+        'click': '_selectMovie'
+    },
+
+    initialize: function() {
+        this.listenTo(this.model, 'change:title', this.render);
+    },
+
+    render: function() {
+        var tmpl = _.template(this.template);
+        this.$el.html(tmpl(this.model.toJSON()));
+        this.$el.toggleClass('selected', this.model.get('selected'));
+        return this;
+    },
+
+    _selectMovie: function(ev) {
+        ev.preventDefault();
+        if (!this.model.get('selected')) {
+            this.model.collection.unselectAll();
+            this.model.collection.select(this.model.id);
+        }
+    }
+});
+module.exports = MovieView;
+
+},{"backbone":9,"jquery-untouched":10,"underscore":12}],6:[function(require,module,exports){
+var Backbone = require('backbone');
+var MovieView = require('views/movie'); // The UI for selecting a movie
+var MoviesList = Backbone.View.extend({
+    tagName: 'section',
+
+    // <section>
+    //  <% view/movie %>
+    //  <% view/movie %>
+    //  ...
+    //  <% view/movie %>
+    // </section>
+
+    initialize: function() {
+        this.listenTo(this.collection, 'change', this.render);
+    },
+
+    render: function() {
+        var moviesView = this.collection.map(function(movie) {
+            return (new MovieView({
+                model: movie
+            })).render().el;
+        });
+        this.$el.html(moviesView);
+        return this;
+    }
+});
+module.exports = MoviesList;
+
+},{"backbone":9,"views/movie":5}],7:[function(require,module,exports){
+module.exports=[
+    {"id": 1, "title": "The Artist" },
+    {"id": 2, "title": "Taxi Driver"},
+    {"id": 3, "title": "La Dolce Vita"}
+]
+
+},{}],8:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.3.3
 
@@ -1931,7 +2079,9 @@ $(document).ready(function() {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":4,"underscore":5}],3:[function(require,module,exports){
+},{"jquery":11,"underscore":12}],9:[function(require,module,exports){
+arguments[4][8][0].apply(exports,arguments)
+},{"dup":8,"jquery":11,"underscore":12}],10:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.10.2
  * http://jquery.com/
@@ -11722,7 +11872,7 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 })( window );
 
-},{}],4:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -21977,7 +22127,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],5:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -23527,4 +23677,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[1]);
+},{}]},{},[2]);

@@ -7,6 +7,14 @@
       border: 2px #fff solid;
   }
 
+  .movie h1 {
+      font-size: 1em;
+  }
+  .movie a {
+      color: white;
+      text-decoration: none;
+  }
+
   .details {
       width: 240px;
       margin: 10px;
@@ -22,4 +30,8 @@
   #movies {
       width: 120px;
       float: left;
+  }
+
+  #controls {
+      clear: both;
   }

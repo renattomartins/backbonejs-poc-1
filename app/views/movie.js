@@ -7,9 +7,9 @@ var MovieView = Backbone.View.extend({
     className: 'movie',
 
     // <article class="movie selected">
-    //  <h1>The Artist</h1><hr>
+    //  <h1><a href="/movies/1">The Artist</a><hr></h1>
     // </article>
-    template: '<h1><%= title %></h1><hr>',
+    template: '<h1><a href="/movies/<%= id %>"><%= title %></a><hr></h1>',
 
     events: {
         'click': '_selectMovie'

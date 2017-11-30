@@ -159,8 +159,12 @@
         3. And now, use a different browserify command: `$ browserify app/main.js > static/bundle.js`
         The -r option is to define a module name or file to bundle.require() and optionally using a colon separator to set the target.
     3. Defining Routes
-        1. ...
-
+        1. `$ mkdir app/routers`
+        2. `$ cd app/node_modules`
+        3. `$ ln -sf ../routers`
+        4. Copy the codes of pages 51-52 into the new file `app/routers/movies.js`
+            1. Remember that the name of some methods have changed.
+        5. ...
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
