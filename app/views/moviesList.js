@@ -15,9 +15,11 @@ var MoviesList = Backbone.View.extend({
     },
 
     render: function() {
+        var that = this;
         var moviesView = this.collection.map(function(movie) {
             return (new MovieView({
-                model: movie
+                model: movie,
+                router: that.router
             })).render().el;
         });
         this.$el.html(moviesView);

@@ -164,7 +164,13 @@
         3. `$ ln -sf ../routers`
         4. Copy the codes of pages 51-52 into the new file `app/routers/movies.js`
             1. Remember that the name of some methods have changed.
-        5. ...
+    4. Navigating
+        1. Update the `MovieView._selectMovie()` method equals the page 54
+        2. Update the `MovieView.initialize()` method equals the page 55
+        3. Update the `MoviesRouter.initialize()` method equals the page 54
+        4. Update the `MoviesList.render()` method equals the page 55
+    5. Orchestrating views
+        1. ...
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).

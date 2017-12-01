@@ -54,6 +54,7 @@ var data = require('../../movies.json');
 var movies = new Movies(data);
 var Movies = require('collections/movies');
 var MoviesList = require('views/moviesList');
+var _ = require('underscore');
 var MoviesRouter = Backbone.Router.extend({
     routes: {
         'movies/:id': 'selectMovie',
@@ -66,6 +67,7 @@ var MoviesRouter = Backbone.Router.extend({
             el: options.el,
             collection: movies
         });
+        _.extend(this.moviesList, {router: this});
     },
 
     selectMovie: function(id) {
@@ -80,7 +82,7 @@ var MoviesRouter = Backbone.Router.extend({
 
 module.exports = MoviesRouter;
 
-},{"../../movies.json":7,"backbone":9,"collections/movies":1,"views/moviesList":6}],5:[function(require,module,exports){
+},{"../../movies.json":7,"backbone":9,"collections/movies":1,"underscore":12,"views/moviesList":6}],5:[function(require,module,exports){
 var $ = require('jquery-untouched');
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -98,8 +100,9 @@ var MovieView = Backbone.View.extend({
         'click': '_selectMovie'
     },
 
-    initialize: function() {
+    initialize: function(options) {
         this.listenTo(this.model, 'change:title', this.render);
+        this.router = options.router;
     },
 
     render: function() {
@@ -110,10 +113,12 @@ var MovieView = Backbone.View.extend({
     },
 
     _selectMovie: function(ev) {
+        console.log('event on ' + this.model.id);
         ev.preventDefault();
         if (!this.model.get('selected')) {
             this.model.collection.unselectAll();
             this.model.collection.select(this.model.id);
+            this.router.navigate("/movies/" + this.model.id, {trigger: true});
         }
     }
 });
@@ -137,9 +142,11 @@ var MoviesList = Backbone.View.extend({
     },
 
     render: function() {
+        var that = this;
         var moviesView = this.collection.map(function(movie) {
             return (new MovieView({
-                model: movie
+                model: movie,
+                router: that.router
             })).render().el;
         });
         this.$el.html(moviesView);

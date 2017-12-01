@@ -15,8 +15,9 @@ var MovieView = Backbone.View.extend({
         'click': '_selectMovie'
     },
 
-    initialize: function() {
+    initialize: function(options) {
         this.listenTo(this.model, 'change:title', this.render);
+        this.router = options.router;
     },
 
     render: function() {
@@ -27,10 +28,12 @@ var MovieView = Backbone.View.extend({
     },
 
     _selectMovie: function(ev) {
+        console.log('event on ' + this.model.id);
         ev.preventDefault();
         if (!this.model.get('selected')) {
             this.model.collection.unselectAll();
             this.model.collection.select(this.model.id);
+            this.router.navigate("/movies/" + this.model.id, {trigger: true});
         }
     }
 });
