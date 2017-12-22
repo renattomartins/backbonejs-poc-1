@@ -1,4 +1,5 @@
 var Backbone = require('backbone');
+var Layout = require('views/layout');
 var Movies = require('collections/movies');
 var data = require('../../movies.json');
 var movies = new Movies(data);
@@ -18,6 +19,13 @@ var MoviesRouter = Backbone.Router.extend({
             collection: movies
         });
         _.extend(this.moviesList, {router: this});
+
+        // this.movies = movies;
+        // this.layout = Layout.getInstance({
+        //     el: '#movies',
+        //     router: this
+        // });
+        // this.layout.render();
     },
 
     selectMovie: function(id) {

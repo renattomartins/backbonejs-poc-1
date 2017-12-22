@@ -170,7 +170,11 @@
         3. Update the `MoviesRouter.initialize()` method equals the page 54
         4. Update the `MoviesList.render()` method equals the page 55
     5. Orchestrating views
-        1. ...
+        1. Preparing for a Layout View
+            1. Copy the codes of pages 55-56 into the new file `app/views/layout.js`
+            2. Update the `MoviesRouter.initialize()` method equals the page 56.
+        2. Parent and Child views
+            1. 
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
