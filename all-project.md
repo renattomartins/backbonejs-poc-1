@@ -150,26 +150,27 @@
 
 ## Chapter 4 - Router Basics
     1. Addressing State
-        1. `$ npm install pushstate-server --save`
-        2. Copy the code of the page 50 into the new file `server.js`
-        3. To test, run `$ node server.js` and open `0.0.0.0/5000` on browser
-    2. Preparing
-        1. Move `index.html` file into the `static/index.html` directory and update css and js references
-        2. Clean up the `app/main.js` file like the codes of page 51
-        3. And now, use a different browserify command: `$ browserify app/main.js > static/bundle.js`
-        The -r option is to define a module name or file to bundle.require() and optionally using a colon separator to set the target.
-    3. Defining Routes
-        1. `$ mkdir app/routers`
-        2. `$ cd app/node_modules`
-        3. `$ ln -sf ../routers`
-        4. Copy the codes of pages 51-52 into the new file `app/routers/movies.js`
-            1. Remember that the name of some methods have changed.
-    4. Navigating
-        1. Update the `MovieView._selectMovie()` method equals the page 54
-        2. Update the `MovieView.initialize()` method equals the page 55
-        3. Update the `MoviesRouter.initialize()` method equals the page 54
-        4. Update the `MoviesList.render()` method equals the page 55
-    5. Orchestrating views
+        1. Intro
+            1. `$ npm install pushstate-server --save`
+            2. Copy the code of the page 50 into the new file `server.js`
+            3. To test, run `$ node server.js` and open `0.0.0.0/5000` on browser
+        2. Preparing
+            1. Move `index.html` file into the `static/index.html` directory and update css and js references
+            2. Clean up the `app/main.js` file like the codes of page 51
+            3. And now, use a different browserify command: `$ browserify app/main.js > static/bundle.js`
+            The -r option is to define a module name or file to bundle.require() and optionally using a colon separator to set the target.
+        3. Defining Routes
+            1. `$ mkdir app/routers`
+            2. `$ cd app/node_modules`
+            3. `$ ln -sf ../routers`
+            4. Copy the codes of pages 51-52 into the new file `app/routers/movies.js`
+                1. Remember that the name of some methods have changed.
+        4. Navigating
+            1. Update the `MovieView._selectMovie()` method equals the page 54
+            2. Update the `MovieView.initialize()` method equals the page 55
+            3. Update the `MoviesRouter.initialize()` method equals the page 54
+            4. Update the `MoviesList.render()` method equals the page 55
+    2. Orchestrating views
         1. Preparing for a Layout View
             1. Copy the codes of pages 55-56 into the new file `app/views/layout.js`
             2. Update the `MoviesRouter.initialize()` method equals the page 56.
