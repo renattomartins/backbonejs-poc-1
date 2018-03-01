@@ -152,7 +152,7 @@
     1. Addressing State
         1. `$ npm install pushstate-server --save`
         2. Copy the code of the page 50 into the new file `server.js`
-        3. To test, run `$ node server.js` and open `0.0.0.0/5000` on browser
+        3. To test, run `$ node server.js` and open `0.0.0.0:5000` on browser
     2. Preparing
         1. Move `index.html` file into the `static/index.html` directory and update css and js references
         2. Clean up the `app/main.js` file like the codes of page 51
@@ -174,7 +174,8 @@
             1. Copy the codes of pages 55-56 into the new file `app/views/layout.js`
             2. Update the `MoviesRouter.initialize()` method equals the page 56.
         2. Parent and Child views
-            1. 
+            1. Copy the codes of pages 56-59 into the appropriated files.
+        3. TO DO: Before merge with master, fix the navigate of MovieView (line 36)
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).

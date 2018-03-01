@@ -14,27 +14,22 @@ var MoviesRouter = Backbone.Router.extend({
 
     initialize: function(options) {
         this.movies = movies;
-        this.moviesList = new MoviesList({
-            el: options.el,
-            collection: movies
+        this.layout = Layout.getInstance({
+            el: '#movies',
+            router: this
         });
-        _.extend(this.moviesList, {router: this});
-
-        // this.movies = movies;
-        // this.layout = Layout.getInstance({
-        //     el: '#movies',
-        //     router: this
-        // });
-        // this.layout.render();
+        this.layout.render();
     },
 
     selectMovie: function(id) {
-        this.moviesList.render();
+        this.movies.unselectAll()
         this.movies.select(id);
+        this.layout.setDetails(this.movies.get(id));
     },
 
     showMain: function() {
-        this.moviesList.render();
+        this.movies.unselectAll();
+        this.layout.setChose();
     }
 });
 

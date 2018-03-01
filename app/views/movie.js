@@ -33,7 +33,7 @@ var MovieView = Backbone.View.extend({
         if (!this.model.get('selected')) {
             this.model.collection.unselectAll();
             this.model.collection.select(this.model.id);
-            this.router.navigate("/movies/" + this.model.id, {trigger: true});
+            // this.router.navigate("/movies/" + this.model.id, {trigger: true});
         }
     }
 });

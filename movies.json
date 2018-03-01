@@ -1,5 +1,5 @@
 [
-    {"id": 1, "title": "The Artist" },
-    {"id": 2, "title": "Taxi Driver"},
-    {"id": 3, "title": "La Dolce Vita"}
+    {"id": 1, "title": "The Artist", "showtime": "09-April-20:04", "description": "a description of the album" },
+    {"id": 2, "title": "Taxi Driver", "showtime": "09-April-20:04", "description": "a description of the album" },
+    {"id": 3, "title": "La Dolce Vita", "showtime": "09-April-20:04", "description": "a description of the album" }
 ]
