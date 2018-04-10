@@ -25,6 +25,7 @@ var MovieView = Backbone.View.extend({
     },
 
     _selectMovie: function(ev) {
+        ev.preventDefault();
         console.log('event on ' + this.model.id);
         if (!this.model.get('selected')) {
             this.router.navigate("/movies/" + this.model.id, {trigger: true});
