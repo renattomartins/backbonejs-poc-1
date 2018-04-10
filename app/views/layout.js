@@ -12,11 +12,11 @@ var Layout = Backbone.View.extend({
                </div>'),
 
     initialize: function(options) {
+        this.currentDetails = new ChoseView();
         this.overview = new MoviesList({
             collection: options.router.movies,
             router: options.router
         });
-        this.currentDetails = new ChoseView();
     },
 
     render: function() {

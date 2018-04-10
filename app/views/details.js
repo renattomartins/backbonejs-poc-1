@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
+
 var DetailsView = Backbone.View.extend({
     el: '#details',
     template: _.template('<%= showtime %> <br> <%= description %>'),

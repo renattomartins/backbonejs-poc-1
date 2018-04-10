@@ -1,11 +1,14 @@
 var Backbone = require('backbone');
-var Layout = require('views/layout');
+var _ = require('underscore');
+
+// data
 var Movies = require('collections/movies');
 var data = require('../../movies.json');
 var movies = new Movies(data);
-var Movies = require('collections/movies');
-var MoviesList = require('views/moviesList');
-var _ = require('underscore');
+
+// views
+var Layout = require('views/layout');
+
 var MoviesRouter = Backbone.Router.extend({
     routes: {
         'movies/:id': 'selectMovie',

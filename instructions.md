@@ -176,7 +176,7 @@
             2. Update the `MoviesRouter.initialize()` method equals the page 56.
         2. Parent and Child views
             1. Copy the codes of pages 56-59 into the appropriated files.
-        3. TO DO: Before merge with master, fix the navigate of MovieView (line 36)
+            2. Fix the navigate of MovieView (line 36) with the bundle.js of http://pipefishbook.com/ch_4/subviews/, starting by moviesList module (line 232).
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
