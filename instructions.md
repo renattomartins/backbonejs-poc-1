@@ -14,21 +14,35 @@
         3. Browserify
             1. `npm install -g browserify`
             2. Create file app/main.js with the content of page 10
-        3. To test:
-            1. `$ node`
-            2. `require("./app/main")` // [Function]
-            3. `require("./app/main")()` // { VERSION: '1.3.3', ... ]
-        4. `browserify -r ./app/main:app > static/bundle.js`
-        5. Add in index.html: `<script src="static/bundle.js"></script>`
-        6. You can run `require("app")()` in the browser console to test.
-        7. Now, to require modules as local application dependencies:
-            1. `$ mkdir app/views`
-            2. `$ mkdir app/collections`
-            3. `$ mkdir app/node_modules`
-            4. `$ cd app/node_modules`
-            5. `$ ln -sf ../views` (it creates a symbolic link)
-            6. `$ ln -sf ../collections` (it creates a symbolic link)
-            7. Ps. Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
+            3. To test:
+                1. `$ node`
+                2. `require("./app/main")` // [Function]
+                3. `require("./app/main")()` // { VERSION: '1.3.3', ... ]
+                4. `browserify -r ./app/main:app > static/bundle.js`
+            5. Add in index.html: `<script src="static/bundle.js"></script>`
+            6. You can run `require("app")()` in the browser console to test.
+            7. Now, to require modules as local application dependencies:
+                1. `$ mkdir app/views`
+                2. `$ mkdir app/collections`
+                3. `$ mkdir app/node_modules`
+                4. `$ cd app/node_modules`
+                5. `$ ln -sf ../views` (it creates a symbolic link)
+                6. `$ ln -sf ../collections` (it creates a symbolic link)
+                7. Ps. Based on symbolic links to the ./app/node_modules path, Browserify can find your local modules an you can easily require a module in your application like this: `require('views/movie');`
+        4. Combining Express.js and Stitch
+            1. `$ npm install express`
+            2. `$ npm install morgan`
+            3. `$ mkdir server`
+            4. Creates the file `server/app-stitch.js` with the content of pages 13-14
+            5. To run: `node server/app-stitch.js`
+            6. To access the URL: `curl 0.0.0.0:5000` and view the response in HTML
+            7. `$ npm install stitch`
+            8. Updates the file `server/app-stitch.js` with the content of page 14-15
+            9. `$ mkdir app`
+            10. Create a file `app/init-stitch.js` with the content: `console.log("hello, world");`
+            11. To run: `node server/app-stitch.js`
+            12. To test: `curl 0.0.0.0:5000/static/bundle.js` // .... {"main": function(exports, ...
+            13. To test in browser: `0.0.0.0:5000/` and in console, call: `require("init-stitch")` // hello, world
 
 ## Chapter 2 - Kick-Starting Application Development
     1. Basic HTML and Style
@@ -133,6 +147,36 @@
             2. `> app = require('app');`
             3. `> ms = new app.MoviesList({collection: app.movies});`
             4. `> document.body.appendChild(ms.render().el);`
+
+## Chapter 4 - Router Basics
+    1. Addressing State
+        1. Intro
+            1. `$ npm install pushstate-server --save`
+            2. Copy the code of the page 50 into the new file `server.js`
+            3. To test, run `$ node server.js` and open `0.0.0.0:5000` on browser
+        2. Preparing
+            1. Move `index.html` file into the `static/index.html` directory and update css and js references
+            2. Clean up the `app/main.js` file like the codes of page 51
+            3. And now, use a different browserify command: `$ browserify app/main.js > static/bundle.js`
+            The -r option is to define a module name or file to bundle.require() and optionally using a colon separator to set the target.
+        3. Defining Routes
+            1. `$ mkdir app/routers`
+            2. `$ cd app/node_modules`
+            3. `$ ln -sf ../routers`
+            4. Copy the codes of pages 51-52 into the new file `app/routers/movies.js`
+                1. Remember that the name of some methods have changed.
+        4. Navigating
+            1. Update the `MovieView._selectMovie()` method equals the page 54
+            2. Update the `MovieView.initialize()` method equals the page 55
+            3. Update the `MoviesRouter.initialize()` method equals the page 54
+            4. Update the `MoviesList.render()` method equals the page 55
+    2. Orchestrating views
+        1. Preparing for a Layout View
+            1. Copy the codes of pages 55-56 into the new file `app/views/layout.js`
+            2. Update the `MoviesRouter.initialize()` method equals the page 56.
+        2. Parent and Child views
+            1. Copy the codes of pages 56-59 into the appropriated files.
+            2. Fix the navigate of MovieView (line 36) with the bundle.js of http://pipefishbook.com/ch_4/subviews/, starting by moviesList module (line 232).
 
 ## To do
 1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
