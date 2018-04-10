@@ -5,6 +5,7 @@
       color: white;
       margin: 10px;
       border: 2px #fff solid;
+      overflow: hidden;
   }
 
   .movie h1 {
@@ -26,12 +27,27 @@
   .selected {
       border-color: #01FF70;
   }
+  .selected a {
+      color: #ffff7f;
+  }
 
   #movies {
-      width: 120px;
+      width: 720px;
       float: left;
   }
 
   #controls {
       clear: both;
+  }
+
+  #overview {
+    width: 200px;
+    float: left;
+  }
+
+  #details {
+    width: 400px;
+    float: right;
+    border: 3px black solid;
+    padding: 20px;
   }
