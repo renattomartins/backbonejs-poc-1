@@ -1,6 +1,6 @@
 {
   "name": "munich-cinema-web-application",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A movie selector application with backbone.js",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "jquery-untouched": "^1.10.2",
-    "moment": "^2.5.1",
+    "moment": "^2.22.1",
     "morgan": "^1.9.0",
     "pushstate-server": "^3.0.1",
     "stitch": "^0.3.3"
