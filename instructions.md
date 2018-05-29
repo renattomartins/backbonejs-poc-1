@@ -189,6 +189,12 @@
             2. `> raw = require('raw');`
             3. `> var moviesByShowtime = new Movies(raw);`
             4. `> moviesByShowtime.log();`
+        6. Sort by title. To test:
+            1. `> var Movies = require('movies');`
+            1. `> var movies = new Movies(raw);`
+            1. `> sorted = new Movies(movies.sortByTitle());`
+            1. `> sorted.log();`
+
         
 
 
