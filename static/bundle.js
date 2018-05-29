@@ -15,6 +15,10 @@ var Movies = Backbone.Collection.extend({
         this.each(function(movie) {
             movie.set({"selected": false});
         });
+    },
+
+    sortByTitle: function() {
+        return this.sortBy('title');
     }
 });
 module.exports = Movies;

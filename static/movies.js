@@ -13763,6 +13763,10 @@ var MoviesByShowtime = Backbone.Collection.extend({
         return -m.showtimeToDate();
     },
 
+    sortByTitle: function() {
+        return this.sortBy('title');
+    },
+
     log: function() {
         console.log(this.models);
         this.each(function(movie) {

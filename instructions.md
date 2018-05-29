@@ -184,7 +184,12 @@
         2. Run `$ browserify -r ./app/collections/moviesByShowtime.js:movies > static/movies.js`
         3. Run `$ browserify -r ./movies.json:raw > static/data.js`
         4. Add codes of page 63 into static/index.html
-        5. Run commands (also page 63) on console to test
+        5. Run commands (also page 63) on console to test: 
+            1. `> Movies = require('movies');`
+            2. `> raw = require('raw');`
+            3. `> var moviesByShowtime = new Movies(raw);`
+            4. `> moviesByShowtime.log();`
+        
 
 
 ## To do
