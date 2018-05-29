@@ -19,6 +19,24 @@ var Movies = Backbone.Collection.extend({
 
     sortByTitle: function() {
         return this.sortBy('title');
+    },
+
+    sortByRating: function() {
+        var sorted = this.sortBy(function(m) {
+          return (10 - m.get('rating'));
+        });
+        return sorted;
+    },
+
+    sortByShowtime: function() {
+        return this.sortBy('showtime');
+    },
+
+    log: function() {
+        console.log(this.models);
+        this.each(function(movie) {
+            console.log(movie.get('title') + "  " + movie.showtimeToString() + "(" + movie.get('showtime') + ")");
+        });
     }
 });
 module.exports = Movies;
