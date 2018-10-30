@@ -2,9 +2,9 @@
   "name": "munich-cinema-web-application",
   "version": "0.4.1",
   "description": "A movie selector application with backbone.js",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon"
   },
   "repository": {
     "type": "git",
