@@ -194,6 +194,10 @@
             1. `> var movies = new Movies(raw);`
             1. `> sorted = new Movies(movies.sortByTitle());`
             1. `> sorted.log();`
+        7. Create the file `app/views/sort.js` and edit the file `app/views/layout.js`
+        8. Rerun the browserify `$ browserify app/main.js > static/bundle.js`
+    2. Filtering
+        1. 
 
         
 

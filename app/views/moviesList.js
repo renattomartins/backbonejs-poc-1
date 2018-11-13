@@ -5,6 +5,7 @@ var MoviesList = Backbone.View.extend({
 
     initialize: function(options) {
         this.router = options.router;
+        this.listenTo(this.collection, 'reset', this.render);
     },
 
     render: function() {
