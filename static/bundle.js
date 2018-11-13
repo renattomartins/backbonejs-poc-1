@@ -171,7 +171,21 @@ var Layout = Backbone.View.extend({
                    <button id="by_title">By Title</button>       \
                    <button id="by_rating">By Rating</button>     \
                    <button id="by_showtime">By Showtime</button> \
+                   <p>Filter</p>             \
+                   <select name="genre">     \
+                     <option value="all">    \
+                       All                   \
+                     </option>               \
+                     <option value="Drama">  \
+                       Drama                 \
+                     </option>               \
+                     <option value="Action"> \
+                       Action                \
+                     </option>               \
+                   </select>                 \
                  </nav>              \
+                 <span id="info">    \
+                 </span>             \
                </header>             \
                <div id="overview">   \
                </div>                \
@@ -193,7 +207,7 @@ var Layout = Backbone.View.extend({
         this.controls.setElement(this.$('#controls'));
         this.currentDetails.setElement(this.$('#details')).render();
         this.overview.setElement(this.$('#overview')).render();
-        
+
         return this;
     },
 
