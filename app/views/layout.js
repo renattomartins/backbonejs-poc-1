@@ -9,7 +9,6 @@ var Layout = Backbone.View.extend({
 
     template: _.template('           \
                <header>              \
-               <a href="#">Home</a>  \
                  <nav id="controls"> \
                    <button id="by_title">By Title</button>       \
                    <button id="by_rating">By Rating</button>     \
@@ -27,8 +26,6 @@ var Layout = Backbone.View.extend({
                      </option>               \
                    </select>                 \
                  </nav>              \
-                 <span id="info">    \
-                 </span>             \
                </header>             \
                <div id="overview">   \
                </div>                \

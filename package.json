@@ -28,7 +28,6 @@
     "jquery-untouched": "^1.10.2",
     "moment": "^2.22.1",
     "morgan": "^1.9.0",
-    "pushstate-server": "^3.0.1",
-    "stitch": "^0.3.3"
+    "pushstate-server": "^3.0.1"
   }
 }
