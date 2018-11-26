@@ -1,335 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Backbone = require("Backbone");
-var Movie = require('models/movie');
-
-var Movies = Backbone.Collection.extend({
-    model: Movie,
-
-    select: function(id) {
-        var movie = this.get(id);
-        movie.set({"selected": true});
-        return movie.id;
-    },
-
-    unselectAll: function() {
-        this.each(function(movie) {
-            movie.set({"selected": false});
-        });
-    },
-
-    sortByTitle: function() {
-        return this.sortBy('title');
-    },
-
-    sortByRating: function() {
-        var sorted = this.sortBy(function(m) {
-          return (10 - m.get('rating'));
-        });
-        return sorted;
-    },
-
-    sortByShowtime: function() {
-        return this.sortBy('showtime');
-    },
-
-    log: function() {
-        console.log(this.models);
-        this.each(function(movie) {
-            console.log(movie.get('title') + "  " + movie.showtimeToString() + "(" + movie.get('showtime') + ")");
-        });
-    }
-});
-module.exports = Movies;
-
-},{"Backbone":12,"models/movie":3}],2:[function(require,module,exports){
-var Backbone = require('backbone');
-var $ = require('jquery-untouched');
-var MoviesRouter = require('routers/movies');
-
-Backbone.$ = $;
-
-$(document).ready(function() {
-    console.log('Init app ...');
-    var router = new MoviesRouter({ el: $('#movies') });
-    Backbone.history.start({
-        pushState: true,
-        root: '/'
-    });
-});
-
-},{"backbone":13,"jquery-untouched":14,"routers/movies":4}],3:[function(require,module,exports){
-var Backbone = require("Backbone");
-var Movie = Backbone.Model.extend({
-    defaults: {
-        title: "default",
-        year: 0,
-        description: "empty",
-        selected: false
-    },
-
-    showtimeToDate: function() {
-        var d = new Date(0);
-        d.setUTCSeconds(this.get('showtime'));
-        return d;
-    },
-
-    showtimeToString: function() {
-        return this.showtimeToDate().toLocaleString();
-    }
-});
-module.exports = Movie;
-
-},{"Backbone":12}],4:[function(require,module,exports){
-var Backbone = require('backbone');
-var _ = require('underscore');
-
-// data
-var Movies = require('collections/movies');
-var data = require('../../movies.json');
-var movies = new Movies(data);
-
-// views
-var Layout = require('views/layout');
-
-var MoviesRouter = Backbone.Router.extend({
-    routes: {
-        'movies/:id': 'selectMovie',
-        '': 'showMain'
-    },
-
-    initialize: function(options) {
-        this.movies = movies;
-        this.layout = Layout.getInstance({
-            el: '#movies',
-            router: this
-        });
-        this.layout.render();
-    },
-
-    selectMovie: function(id) {
-        this.movies.unselectAll()
-        this.movies.select(id);
-        this.layout.setDetails(this.movies.get(id));
-    },
-
-    showMain: function() {
-        this.movies.unselectAll();
-        this.layout.setChose();
-    }
-});
-
-module.exports = MoviesRouter;
-
-},{"../../movies.json":11,"backbone":13,"collections/movies":1,"underscore":16,"views/layout":7}],5:[function(require,module,exports){
-var Backbone = require('backbone');
-
-var ChoseView = Backbone.View.extend({
-    template: '<h1>Welcome to Munich Cinema</h1>\
-               <h2>Please choose a movie</h2>',
-    className: 'details',
-
-    render: function() {
-        this.$el.html(this.template);
-        return this;
-    }
-});
-module.exports = ChoseView;
-
-},{"backbone":13}],6:[function(require,module,exports){
-var _ = require('underscore');
-var moment = require('moment');
-var Backbone = require('backbone');
-
-var DetailsView = Backbone.View.extend({
-    el: '#details',
-    template: _.template('<h1><%= showtimeFormatted %> - <%= title %> </h1>\
-                          <br><br> <%= description %>'),
-
-    render: function() {
-        var showtime = moment(showtime).format("DD-MMMM HH:MM");
-        var data = _.extend(this.model.toJSON(), {showtimeFormatted: showtime});
-        this.$el.html(this.template(data));
-        return this;
-    }
-});
-module.exports = DetailsView;
-
-},{"backbone":13,"moment":15,"underscore":16}],7:[function(require,module,exports){
-var _ = require('underscore');
-var Backbone = require('backbone');
-var MoviesList = require('views/moviesList');
-var ChoseView = require('./chose');
-var DetailsView = require('./details');
-var Controls = require('views/sort');
-
-var Layout = Backbone.View.extend({
-
-    template: _.template('           \
-               <header>              \
-                 <nav id="controls"> \
-                   <button id="by_title">By Title</button>       \
-                   <button id="by_rating">By Rating</button>     \
-                   <button id="by_showtime">By Showtime</button> \
-                   <p>Filter</p>             \
-                   <select name="genre">     \
-                     <option value="all">    \
-                       All                   \
-                     </option>               \
-                     <option value="Drama">  \
-                       Drama                 \
-                     </option>               \
-                     <option value="Action"> \
-                       Action                \
-                     </option>               \
-                   </select>                 \
-                 </nav>              \
-               </header>             \
-               <div id="overview">   \
-               </div>                \
-               <div id="details">    \
-               </div>'),
-
-    initialize: function(options) {
-        this.controls = new Controls({ collection: options.router.movies });
-        this.overview = new MoviesList({
-            el: options.el,
-            collection: options.router.movies,
-            router: options.router
-        });
-        this.currentDetails = new ChoseView();
-    },
-
-    render: function() {
-        this.$el.html(this.template());
-        this.controls.setElement(this.$('#controls'));
-        this.currentDetails.setElement(this.$('#details')).render();
-        this.overview.setElement(this.$('#overview')).render();
-
-        return this;
-    },
-
-    setDetails: function(movie) {
-        if (this.currentDetails) this.currentDetails.remove();
-        this.currentDetails = new DetailsView({model: movie});
-        this.render();
-    },
-
-    setChose: function() {
-        if (this.currentDetails) this.currentDetails.remove();
-        this.currentDetails = new ChoseView();
-        this.render();
-    }
-
-});
-
-var instance;
-Layout.getInstance = function(options) {
-    if (!instance) {
-        instance = new Layout({
-            el: options.el,
-            router: options.router,
-            collection: options.router.movies
-        });
-    }
-    return instance;
-}
-module.exports = Layout;
-
-},{"./chose":5,"./details":6,"backbone":13,"underscore":16,"views/moviesList":9,"views/sort":10}],8:[function(require,module,exports){
-var $ = require('jquery-untouched');
-var Backbone = require('backbone');
-var _ = require('underscore');
-
-var MovieView = Backbone.View.extend({
-    tagName: 'article',
-    className: 'movie',
-    template: '<h1><a href="/movies/<%= id %>"><%= title %></a><hr></h1>',
-
-    events: {
-        'click': '_selectMovie'
-    },
-
-    initialize: function(options) {
-        this.listenTo(this.model, 'change:title', this.render);
-        this.listenTo(this.model, 'change:selected', this.render);
-        this.router = options.router;
-    },
-
-    render: function() {
-        var tmpl = _.template(this.template);
-        this.$el.html(tmpl(this.model.toJSON()));
-        this.$el.toggleClass('selected', this.model.get('selected'));
-        return this;
-    },
-
-    _selectMovie: function(ev) {
-        ev.preventDefault();
-        console.log('event on ' + this.model.id);
-        if (!this.model.get('selected')) {
-            this.router.navigate("/movies/" + this.model.id, {trigger: true});
-        }
-    }
-});
-module.exports = MovieView;
-
-},{"backbone":13,"jquery-untouched":14,"underscore":16}],9:[function(require,module,exports){
-var Backbone = require('backbone');
-var MovieView = require('views/movie'); // The UI for selecting a movie
-var MoviesList = Backbone.View.extend({
-    tagName: 'section',
-
-    initialize: function(options) {
-        this.router = options.router;
-        this.listenTo(this.collection, 'reset', this.render);
-    },
-
-    render: function() {
-        var that = this;
-        var moviesView = this.collection.map(function(movie) {
-            return (new MovieView({model: movie, router: that.router})).render().el;
-        });
-        this.$el.html(moviesView);
-        return this;
-    }
-});
-
-var instance;
-MoviesList.getInstance = function(options) {
-    if (!instance) {
-        instance = new MoviesList({el: options.el, collection: options.collection, router: options.router});
-    }
-    return instance;
-}
-
-module.exports = MoviesList;
-
-},{"backbone":13,"views/movie":8}],10:[function(require,module,exports){
-var Backbone = require('backbone');
-var SortView = Backbone.View.extend({
-    events: {
-        'click #by_title': 'sortByTitle',
-        'click #by_rating': 'sortByRating',
-        'click #by_showtime': 'sortByShowtime'
-    },
-
-    sortByTitle: function(ev) {
-        this.movies.reset(this.movies.sortByTitle());
-    },
-
-    sortByRating: function(ev) {
-        this.movies.reset(this.movies.sortByRating());
-    },
-
-    sortByShowtime: function(ev) {
-        this.movies.reset(this.movies.sortByShowtime());
-    },
-
-    initialize: function() {
-        this.movies = this.collection;
-    }
-});
-module.exports = SortView;
-},{"backbone":13}],11:[function(require,module,exports){
 module.exports=[
     {
         "id": 12,
@@ -623,7 +292,7 @@ module.exports=[
     }
 ]
 
-},{}],12:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.3.3
 
@@ -2547,9 +2216,9 @@ module.exports=[
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":17,"underscore":16}],13:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12,"jquery":17,"underscore":16}],14:[function(require,module,exports){
+},{"jquery":17,"underscore":6}],3:[function(require,module,exports){
+arguments[4][2][0].apply(exports,arguments)
+},{"dup":2,"jquery":17,"underscore":6}],4:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.10.2
  * http://jquery.com/
@@ -12340,7 +12009,7 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 })( window );
 
-},{}],15:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 //! moment.js
 
 ;(function (global, factory) {
@@ -16848,7 +16517,7 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 })));
 
-},{}],16:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -18398,7 +18067,338 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
   }
 }.call(this));
 
-},{}],17:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = require('models/movie');
+
+var Movies = Backbone.Collection.extend({
+    model: Movie,
+
+    select: function(id) {
+        var movie = this.get(id);
+        movie.set({"selected": true});
+        return movie.id;
+    },
+
+    unselectAll: function() {
+        this.each(function(movie) {
+            movie.set({"selected": false});
+        });
+    },
+
+    sortByTitle: function() {
+        return this.sortBy('title');
+    },
+
+    sortByRating: function() {
+        var sorted = this.sortBy(function(m) {
+          return (10 - m.get('rating'));
+        });
+        return sorted;
+    },
+
+    sortByShowtime: function() {
+        return this.sortBy('showtime');
+    },
+
+    log: function() {
+        console.log(this.models);
+        this.each(function(movie) {
+            console.log(movie.get('title') + "  " + movie.showtimeToString() + "(" + movie.get('showtime') + ")");
+        });
+    }
+});
+module.exports = Movies;
+
+},{"Backbone":2,"models/movie":9}],8:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery-untouched');
+var MoviesRouter = require('routers/movies');
+
+Backbone.$ = $;
+
+$(document).ready(function() {
+    console.log('Init app ...');
+    var router = new MoviesRouter({ el: $('#movies') });
+    Backbone.history.start({
+        pushState: true,
+        root: '/'
+    });
+});
+
+},{"backbone":3,"jquery-untouched":4,"routers/movies":10}],9:[function(require,module,exports){
+var Backbone = require("Backbone");
+var Movie = Backbone.Model.extend({
+    defaults: {
+        title: "default",
+        year: 0,
+        description: "empty",
+        selected: false
+    },
+
+    showtimeToDate: function() {
+        var d = new Date(0);
+        d.setUTCSeconds(this.get('showtime'));
+        return d;
+    },
+
+    showtimeToString: function() {
+        return this.showtimeToDate().toLocaleString();
+    }
+});
+module.exports = Movie;
+
+},{"Backbone":2}],10:[function(require,module,exports){
+var Backbone = require('backbone');
+var _ = require('underscore');
+
+// data
+var Movies = require('collections/movies');
+var data = require('../../movies.json');
+var movies = new Movies(data);
+
+// views
+var Layout = require('views/layout');
+
+var MoviesRouter = Backbone.Router.extend({
+    routes: {
+        'movies/:id': 'selectMovie',
+        '': 'showMain'
+    },
+
+    initialize: function(options) {
+        this.movies = movies;
+        this.layout = Layout.getInstance({
+            el: '#movies',
+            router: this
+        });
+        this.layout.render();
+    },
+
+    selectMovie: function(id) {
+        this.movies.unselectAll()
+        this.movies.select(id);
+        this.layout.setDetails(this.movies.get(id));
+    },
+
+    showMain: function() {
+        this.movies.unselectAll();
+        this.layout.setChose();
+    }
+});
+
+module.exports = MoviesRouter;
+
+},{"../../movies.json":1,"backbone":3,"collections/movies":7,"underscore":6,"views/layout":13}],11:[function(require,module,exports){
+var Backbone = require('backbone');
+
+var ChoseView = Backbone.View.extend({
+    template: '<h1>Welcome to Munich Cinema</h1>\
+               <h2>Please choose a movie</h2>',
+    className: 'details',
+
+    render: function() {
+        this.$el.html(this.template);
+        return this;
+    }
+});
+module.exports = ChoseView;
+
+},{"backbone":3}],12:[function(require,module,exports){
+var _ = require('underscore');
+var moment = require('moment');
+var Backbone = require('backbone');
+
+var DetailsView = Backbone.View.extend({
+    el: '#details',
+    template: _.template('<h1><%= showtimeFormatted %> - <%= title %> </h1>\
+                          <br><br> <%= description %>'),
+
+    render: function() {
+        var showtime = moment(showtime).format("DD-MMMM HH:MM");
+        var data = _.extend(this.model.toJSON(), {showtimeFormatted: showtime});
+        this.$el.html(this.template(data));
+        return this;
+    }
+});
+module.exports = DetailsView;
+
+},{"backbone":3,"moment":5,"underscore":6}],13:[function(require,module,exports){
+var _ = require('underscore');
+var Backbone = require('backbone');
+var MoviesList = require('views/moviesList');
+var ChoseView = require('./chose');
+var DetailsView = require('./details');
+var Controls = require('views/sort');
+
+var Layout = Backbone.View.extend({
+
+    template: _.template('           \
+               <header>              \
+                 <nav id="controls"> \
+                   <button id="by_title">By Title</button>       \
+                   <button id="by_rating">By Rating</button>     \
+                   <button id="by_showtime">By Showtime</button> \
+                   <p>Filter</p>             \
+                   <select name="genre">     \
+                     <option value="all">    \
+                       All                   \
+                     </option>               \
+                     <option value="Drama">  \
+                       Drama                 \
+                     </option>               \
+                     <option value="Action"> \
+                       Action                \
+                     </option>               \
+                   </select>                 \
+                 </nav>              \
+               </header>             \
+               <div id="overview">   \
+               </div>                \
+               <div id="details">    \
+               </div>'),
+
+    initialize: function(options) {
+        this.controls = new Controls({ collection: options.router.movies });
+        this.overview = new MoviesList({
+            el: options.el,
+            collection: options.router.movies,
+            router: options.router
+        });
+        this.currentDetails = new ChoseView();
+    },
+
+    render: function() {
+        this.$el.html(this.template());
+        this.controls.setElement(this.$('#controls'));
+        this.currentDetails.setElement(this.$('#details')).render();
+        this.overview.setElement(this.$('#overview')).render();
+
+        return this;
+    },
+
+    setDetails: function(movie) {
+        if (this.currentDetails) this.currentDetails.remove();
+        this.currentDetails = new DetailsView({model: movie});
+        this.render();
+    },
+
+    setChose: function() {
+        if (this.currentDetails) this.currentDetails.remove();
+        this.currentDetails = new ChoseView();
+        this.render();
+    }
+
+});
+
+var instance;
+Layout.getInstance = function(options) {
+    if (!instance) {
+        instance = new Layout({
+            el: options.el,
+            router: options.router,
+            collection: options.router.movies
+        });
+    }
+    return instance;
+}
+module.exports = Layout;
+
+},{"./chose":11,"./details":12,"backbone":3,"underscore":6,"views/moviesList":15,"views/sort":16}],14:[function(require,module,exports){
+var $ = require('jquery-untouched');
+var Backbone = require('backbone');
+var _ = require('underscore');
+
+var MovieView = Backbone.View.extend({
+    tagName: 'article',
+    className: 'movie',
+    template: '<h1><a href="/movies/<%= id %>"><%= title %></a><hr></h1>',
+
+    events: {
+        'click': '_selectMovie'
+    },
+
+    initialize: function(options) {
+        this.listenTo(this.model, 'change:title', this.render);
+        this.listenTo(this.model, 'change:selected', this.render);
+        this.router = options.router;
+    },
+
+    render: function() {
+        var tmpl = _.template(this.template);
+        this.$el.html(tmpl(this.model.toJSON()));
+        this.$el.toggleClass('selected', this.model.get('selected'));
+        return this;
+    },
+
+    _selectMovie: function(ev) {
+        ev.preventDefault();
+        console.log('event on ' + this.model.id);
+        if (!this.model.get('selected')) {
+            this.router.navigate("/movies/" + this.model.id, {trigger: true});
+        }
+    }
+});
+module.exports = MovieView;
+
+},{"backbone":3,"jquery-untouched":4,"underscore":6}],15:[function(require,module,exports){
+var Backbone = require('backbone');
+var MovieView = require('views/movie'); // The UI for selecting a movie
+var MoviesList = Backbone.View.extend({
+    tagName: 'section',
+
+    initialize: function(options) {
+        this.router = options.router;
+        this.listenTo(this.collection, 'reset', this.render);
+    },
+
+    render: function() {
+        var that = this;
+        var moviesView = this.collection.map(function(movie) {
+            return (new MovieView({model: movie, router: that.router})).render().el;
+        });
+        this.$el.html(moviesView);
+        return this;
+    }
+});
+
+var instance;
+MoviesList.getInstance = function(options) {
+    if (!instance) {
+        instance = new MoviesList({el: options.el, collection: options.collection, router: options.router});
+    }
+    return instance;
+}
+
+module.exports = MoviesList;
+
+},{"backbone":3,"views/movie":14}],16:[function(require,module,exports){
+var Backbone = require('backbone');
+var SortView = Backbone.View.extend({
+    events: {
+        'click #by_title': 'sortByTitle',
+        'click #by_rating': 'sortByRating',
+        'click #by_showtime': 'sortByShowtime'
+    },
+
+    sortByTitle: function(ev) {
+        this.movies.reset(this.movies.sortByTitle());
+    },
+
+    sortByRating: function(ev) {
+        this.movies.reset(this.movies.sortByRating());
+    },
+
+    sortByShowtime: function(ev) {
+        this.movies.reset(this.movies.sortByShowtime());
+    },
+
+    initialize: function() {
+        this.movies = this.collection;
+    }
+});
+module.exports = SortView;
+},{"backbone":3}],17:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.3.1
  * https://jquery.com/
@@ -28764,4 +28764,4 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}]},{},[2]);
+},{}]},{},[8]);
