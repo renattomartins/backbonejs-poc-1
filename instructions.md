@@ -200,5 +200,6 @@
         1. `Follow the pages 66-68, but get the code in "book’s website (link in page 68)" to compare.
     3. Pause to TDD
         1. `$ npm i --save-dev jsdom mocha chai sinon sinon-chai testem`
+        1. ...
     4. Backbone.obscura
         1. ...

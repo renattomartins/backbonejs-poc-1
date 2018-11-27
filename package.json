@@ -7,6 +7,7 @@
     "dev": "nodemon",
     "compile": "browserify src/main.js > public/bundle.js",
     "watch": "watchify src/main.js -o public/bundle.js -v",
+    "test": "mocha",
     "tdd": "testem"
   },
   "repository": {
