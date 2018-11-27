@@ -3,7 +3,7 @@ var Backbone = require('backbone');
 var MoviesList = require('views/moviesList');
 var ChoseView = require('./chose');
 var DetailsView = require('./details');
-var Controls = require('views/sort');
+var Controls = require('views/controls');
 
 var Layout = Backbone.View.extend({
 
@@ -33,7 +33,10 @@ var Layout = Backbone.View.extend({
                </div>'),
 
     initialize: function(options) {
-        this.controls = new Controls({ collection: options.router.movies });
+        this.controls = new Controls({
+            collection: options.router.movies,
+            superset: new Backbone.Collection(options.router.movies.toJSON())
+        });
         this.overview = new MoviesList({
             el: options.el,
             collection: options.router.movies,

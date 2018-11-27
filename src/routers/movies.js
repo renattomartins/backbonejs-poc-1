@@ -15,7 +15,7 @@ var MoviesRouter = Backbone.Router.extend({
         '': 'showMain'
     },
 
-    initialize: function(options) {
+    initialize: function() {
         this.movies = movies;
         this.layout = Layout.getInstance({
             el: '#movies',
