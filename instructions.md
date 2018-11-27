@@ -197,4 +197,6 @@
         7. Create the file `app/views/sort.js` and edit the file `app/views/layout.js`
         8. Rerun the browserify `$ browserify app/main.js > static/bundle.js`
     2. Filtering
-        1. 
+        1. `Follow the pages 66-68, but get the code in "book’s website (link in page 68)" to compare.
+    3. Backbone.obscura
+        1. ...
