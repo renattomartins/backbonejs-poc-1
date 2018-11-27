@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "compile": "browserify src/main.js > public/bundle.js",
-    "watch": "watchify src/main.js -o public/bundle.js -v"
+    "watch": "watchify src/main.js -o public/bundle.js -v",
+    "tdd": "testem"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,13 @@
     "jquery-untouched": "^1.10.2",
     "moment": "^2.22.1",
     "pushstate-server": "^3.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "jsdom": "^13.0.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.1.1",
+    "sinon-chai": "^3.3.0",
+    "testem": "^2.14.0"
   }
 }

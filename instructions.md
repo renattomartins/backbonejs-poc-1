@@ -198,5 +198,7 @@
         8. Rerun the browserify `$ browserify app/main.js > static/bundle.js`
     2. Filtering
         1. `Follow the pages 66-68, but get the code in "book’s website (link in page 68)" to compare.
-    3. Backbone.obscura
+    3. Pause to TDD
+        1. `$ npm i --save-dev jsdom mocha chai sinon sinon-chai testem`
+    4. Backbone.obscura
         1. ...
