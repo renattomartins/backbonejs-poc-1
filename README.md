@@ -3,7 +3,8 @@
 Version 0.4.1
 
 ## To compile:
-1. `$ browserify src/main.js > public/bundle.js`
+1. `$ npm run compile`
+1. Or... `$ npm run watch`
 
 ## To run:
 1. `$ npm run dev`
