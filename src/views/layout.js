@@ -1,9 +1,9 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
-var MoviesList = require('views/moviesList');
+var MoviesList = require('./moviesList');
 var ChoseView = require('./chose');
 var DetailsView = require('./details');
-var Controls = require('views/controls');
+var Controls = require('./controls');
 
 var Layout = Backbone.View.extend({
 

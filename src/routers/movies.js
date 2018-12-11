@@ -2,12 +2,12 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 
 // data
-var Movies = require('collections/movies');
+var Movies = require('../collections/movies');
 var data = require('../../movies.json');
 var movies = new Movies(data);
 
 // views
-var Layout = require('views/layout');
+var Layout = require('../views/layout');
 
 var MoviesRouter = Backbone.Router.extend({
     routes: {
