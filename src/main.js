@@ -1,6 +1,6 @@
 var Backbone = require('backbone');
-var $ = require('jquery-untouched');
-var MoviesRouter = require('routers/movies');
+var $ = require('jquery');
+var MoviesRouter = require('./routers/movies');
 
 Backbone.$ = $;
 

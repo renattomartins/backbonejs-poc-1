@@ -178,6 +178,28 @@
             1. Copy the codes of pages 56-59 into the appropriated files.
             2. Fix the navigate of MovieView (line 36) with the bundle.js of http://pipefishbook.com/ch_4/subviews/, starting by moviesList module (line 232).
 
-## To do
-1. To save you from typing `browserify` every time a file changes, you can use the **watchify tool**, which automates builds as soon as an input file changes. However, to keep the code examples consistent, the book examples only show the browserify command (Page 11).
-2. To understand the case: "One option is using Underscore.js bindAll in the view constructor: `initialize: function() { _.bindAll(this, "render"); }`. By binding the this context of a view to render, all properties of the object will be accessible even when a view context would have changed to a different callback scope. (page 39, Ch3.1.6.4)"
+## Chapter 5 - Transforming Collections
+    1. Sorting
+        1. Copy the code of pages 62 and 63
+        2. Run `$ browserify -r ./app/collections/moviesByShowtime.js:movies > static/movies.js`
+        3. Run `$ browserify -r ./movies.json:raw > static/data.js`
+        4. Add codes of page 63 into static/index.html
+        5. Run commands (also page 63) on console to test: 
+            1. `> Movies = require('movies');`
+            2. `> raw = require('raw');`
+            3. `> var moviesByShowtime = new Movies(raw);`
+            4. `> moviesByShowtime.log();`
+        6. Sort by title. To test:
+            1. `> var Movies = require('movies');`
+            1. `> var movies = new Movies(raw);`
+            1. `> sorted = new Movies(movies.sortByTitle());`
+            1. `> sorted.log();`
+        7. Create the file `app/views/sort.js` and edit the file `app/views/layout.js`
+        8. Rerun the browserify `$ browserify app/main.js > static/bundle.js`
+    2. Filtering
+        1. `Follow the pages 66-68, but get the code in "book’s website (link in page 68)" to compare.
+    3. Pause to TDD
+        1. `$ npm i --save-dev jsdom mocha chai sinon sinon-chai testem`
+        1. [x]
+    4. Backbone.obscura
+        1. [x]
