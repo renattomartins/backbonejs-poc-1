@@ -1,10 +1,15 @@
 # Munich Cinema Web Application
 
-Version 0.4.1
+Version 0.5.0
 
 ## To compile:
-1. `$ browserify app/main.js > static/bundle.js`
+1. `$ npm run compile`
+1. Or... `$ npm run watch`
 
-## To run:
-1. `$ node server.js`
-1. Access `0.0.0.0:5000` on browser
+## To run tests:
+1. `$ npm run tdd`
+1. Access `localhost:7357` on browser
+
+## To run the webapp:
+1. `$ npm run dev`
+1. Access `localhost:5000` on browser

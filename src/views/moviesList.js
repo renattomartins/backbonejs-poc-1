@@ -1,10 +1,11 @@
 var Backbone = require('backbone');
-var MovieView = require('views/movie'); // The UI for selecting a movie
+var MovieView = require('./movie'); // The UI for selecting a movie
 var MoviesList = Backbone.View.extend({
     tagName: 'section',
 
     initialize: function(options) {
         this.router = options.router;
+        this.listenTo(this.collection, 'reset', this.render);
     },
 
     render: function() {
