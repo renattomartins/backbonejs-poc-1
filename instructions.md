@@ -205,4 +205,11 @@
         1. [x]
 
 ## Chapter 6 - Advanced View Tamplates
-    1. 
+    1. Views and Templates
+        1. JST
+            1. `npm i --save-dev jstify`
+            1. `mkdir app/templates`
+            1. Create the `src/templates/genres.html.jst` file
+            1. Create the `src/views/genresFilter.js` file
+            1. Define a new way to run: `browserify src/main.js -t jstify > public/bundle.js` and `watchify src/main.js -t jstify -o public/bundle.js -v`
+            1. Make some adjusts in layout.js to bind the new view
