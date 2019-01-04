@@ -18910,7 +18910,25 @@ var MoviesRouter = Backbone.Router.extend({
 
 module.exports = MoviesRouter;
 
-},{"../../movies.json":1,"../collections/movies":7,"../views/layout":14,"backbone":3,"underscore":6}],11:[function(require,module,exports){
+},{"../../movies.json":1,"../collections/movies":7,"../views/layout":16,"backbone":3,"underscore":6}],11:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<ul class="filter-genres"> ';
+ _.each(genres, function(name) { 
+__p+=' <li> <input type="checkbox" name="genres" value="'+
+((__t=( name ))==null?'':__t)+
+'"> '+
+((__t=( name ))==null?'':__t)+
+' </li> ';
+ }) 
+__p+=' </ul>';
+}
+return __p;
+};
+
+},{"underscore":6}],12:[function(require,module,exports){
 var Backbone = require('backbone');
 
 var ChoseView = Backbone.View.extend({
@@ -18925,7 +18943,7 @@ var ChoseView = Backbone.View.extend({
 });
 module.exports = ChoseView;
 
-},{"backbone":3}],12:[function(require,module,exports){
+},{"backbone":3}],13:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = Backbone.$;
@@ -18974,7 +18992,7 @@ var ControlsView = Backbone.View.extend({
     }
 });
 module.exports = ControlsView;
-},{"backbone":3,"underscore":6}],13:[function(require,module,exports){
+},{"backbone":3,"underscore":6}],14:[function(require,module,exports){
 var _ = require('underscore');
 var moment = require('moment');
 var Backbone = require('backbone');
@@ -18993,13 +19011,35 @@ var DetailsView = Backbone.View.extend({
 });
 module.exports = DetailsView;
 
-},{"backbone":3,"moment":5,"underscore":6}],14:[function(require,module,exports){
+},{"backbone":3,"moment":5,"underscore":6}],15:[function(require,module,exports){
+var Backbone = require('backbone');
+var genresTemplate = require('../templates/genres.html.jst');
+
+// The UI for selecting a Movie Category
+var GenresView = Backbone.View.extend({
+
+    template: genresTemplate,
+
+    initialize: function() {
+        this.genres = ['Action', 'Drama', 'Comedy'];
+    },
+
+    render: function() {
+        this.$el.html(this.template({genres: this.genres}));
+        return this;
+    }
+    
+});
+
+module.exports = GenresView;
+},{"../templates/genres.html.jst":11,"backbone":3}],16:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var MoviesList = require('./moviesList');
 var ChoseView = require('./chose');
 var DetailsView = require('./details');
 var Controls = require('./controls');
+var GenresFilter = require('./genresFilter');
 
 var Layout = Backbone.View.extend({
 
@@ -19021,6 +19061,7 @@ var Layout = Backbone.View.extend({
                        Action                \
                      </option>               \
                    </select>                 \
+                   <div id="filter"></div>    \
                  </nav>              \
                </header>             \
                <div id="overview">   \
@@ -19039,6 +19080,7 @@ var Layout = Backbone.View.extend({
             router: options.router
         });
         this.currentDetails = new ChoseView();
+        this.genresFilter = new GenresFilter();
     },
 
     render: function() {
@@ -19046,6 +19088,7 @@ var Layout = Backbone.View.extend({
         this.controls.setElement(this.$('#controls'));
         this.currentDetails.setElement(this.$('#details')).render();
         this.overview.setElement(this.$('#overview')).render();
+        this.genresFilter.setElement(this.$('#filter')).render();
 
         return this;
     },
@@ -19077,7 +19120,7 @@ Layout.getInstance = function(options) {
 }
 module.exports = Layout;
 
-},{"./chose":11,"./controls":12,"./details":13,"./moviesList":16,"backbone":3,"underscore":6}],15:[function(require,module,exports){
+},{"./chose":12,"./controls":13,"./details":14,"./genresFilter":15,"./moviesList":18,"backbone":3,"underscore":6}],17:[function(require,module,exports){
 var $ = require('jquery');
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -19114,7 +19157,7 @@ var MovieView = Backbone.View.extend({
 });
 module.exports = MovieView;
 
-},{"backbone":3,"jquery":4,"underscore":6}],16:[function(require,module,exports){
+},{"backbone":3,"jquery":4,"underscore":6}],18:[function(require,module,exports){
 var Backbone = require('backbone');
 var MovieView = require('./movie'); // The UI for selecting a movie
 var MoviesList = Backbone.View.extend({
@@ -19145,4 +19188,4 @@ MoviesList.getInstance = function(options) {
 
 module.exports = MoviesList;
 
-},{"./movie":15,"backbone":3}]},{},[8]);
+},{"./movie":17,"backbone":3}]},{},[8]);

@@ -4,6 +4,7 @@ var MoviesList = require('./moviesList');
 var ChoseView = require('./chose');
 var DetailsView = require('./details');
 var Controls = require('./controls');
+var GenresFilter = require('./genresFilter');
 
 var Layout = Backbone.View.extend({
 
@@ -25,6 +26,7 @@ var Layout = Backbone.View.extend({
                        Action                \
                      </option>               \
                    </select>                 \
+                   <div id="filter"></div>    \
                  </nav>              \
                </header>             \
                <div id="overview">   \
@@ -43,6 +45,7 @@ var Layout = Backbone.View.extend({
             router: options.router
         });
         this.currentDetails = new ChoseView();
+        this.genresFilter = new GenresFilter();
     },
 
     render: function() {
@@ -50,6 +53,7 @@ var Layout = Backbone.View.extend({
         this.controls.setElement(this.$('#controls'));
         this.currentDetails.setElement(this.$('#details')).render();
         this.overview.setElement(this.$('#overview')).render();
+        this.genresFilter.setElement(this.$('#filter')).render();
 
         return this;
     },

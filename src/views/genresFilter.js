@@ -1,5 +1,5 @@
 var Backbone = require('backbone');
-var genresTemplate = require('../templates/genres.jst');
+var genresTemplate = require('../templates/genres.html.jst');
 
 // The UI for selecting a Movie Category
 var GenresView = Backbone.View.extend({
