@@ -203,3 +203,6 @@
         1. [x]
     4. Backbone.obscura
         1. [x]
+
+## Chapter 6 - Advanced View Tamplates
+    1. 

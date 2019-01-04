@@ -2,8 +2,8 @@
 
 Version 0.5.0
 
-## To compile:
-1. `$ npm run compile`
+## To bundle:
+1. `$ npm run bundle`
 1. Or... `$ npm run watch`
 
 ## To run tests:
