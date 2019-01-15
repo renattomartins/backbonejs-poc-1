@@ -1,5 +1,7 @@
 module.exports = function (grunt) {
 
+    "use strict";
+
     grunt.initConfig({
         browserify: {
             options: {
@@ -10,7 +12,8 @@ module.exports = function (grunt) {
                         src: ['**/*.js'],
                         dest: 'src/'
                     }]
-            }, app: {
+            },
+            app: {
                 src: ['src/**/*.js'],
                 dest: 'public/bundle.js'
             }
