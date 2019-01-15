@@ -217,4 +217,5 @@
             1. `$ npm install -g grunt`
             1. `$ npm uninstall jstify
             1. Remove all dependencies and referencies to GenresFilter view
-            1. 
+            1. `$ npm i --save-dev grunt-browserify grunt-contrib-watch grunt-contrib-handlebars`
+            1. `$ npm i --save handlebars`
