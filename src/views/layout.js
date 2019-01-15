@@ -4,7 +4,7 @@ var MoviesList = require('./moviesList');
 var ChoseView = require('./chose');
 var DetailsView = require('./details');
 var Controls = require('./controls');
-var GenresFilter = require('./genresFilter');
+// var GenresFilter = require('./genresFilter');
 
 var Layout = Backbone.View.extend({
 
@@ -27,7 +27,7 @@ var Layout = Backbone.View.extend({
             collection: options.router.movies,
             superset: new Backbone.Collection(options.router.movies.toJSON())
         });
-        this.genresFilter = new GenresFilter();
+        // this.genresFilter = new GenresFilter();
         this.overview = new MoviesList({
             el: options.el,
             collection: options.router.movies,
@@ -39,7 +39,7 @@ var Layout = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
         this.controls.setElement(this.$('#controls'));
-        this.genresFilter.setElement(this.$('#filter')).render();
+        // this.genresFilter.setElement(this.$('#filter')).render();
         this.currentDetails.setElement(this.$('#details')).render();
         this.overview.setElement(this.$('#overview')).render();
 
