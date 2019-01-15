@@ -10,15 +10,15 @@ var GenresView = Backbone.View.extend({
 
     render: function() {
         var template = Handlebars.compile(
-            '<p>Filter</p>\
-            <select name="genre">\
-                {{#each genres}}\
-                <option value="{{ this }}">\
-                    {{ this }}\
-                </option>\
-                {{/each}}\
-            </ul>\
-            </select>'
+            '<p>Filter</p>' +
+            '<select name="genre">' +
+            '{{#each genres}}' +
+            '<option value="{{ this }}">' +
+            '{{ this }}' +
+            '</option>' +
+            '{{/each}}' +
+            '</ul>' +
+            '</select>'
          );
          var html = template({genres: this.genres});
 

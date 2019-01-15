@@ -26715,7 +26715,7 @@ var Monitor = function(collection) {
         var date = new Date();
         return '[' + date.toLocaleTimeString() + '.' + date.getMilliseconds() + '] ' + message;
     }
-}
+};
 module.exports = Monitor;
 
 },{"backbone":3,"underscore":48}],53:[function(require,module,exports){
@@ -26746,7 +26746,7 @@ var MoviesRouter = Backbone.Router.extend({
     },
 
     selectMovie: function(id) {
-        this.movies.unselectAll()
+        this.movies.unselectAll();
         this.movies.select(id);
         this.layout.setDetails(this.movies.get(id));
     },
@@ -26783,8 +26783,8 @@ return Handlebars.template({"1":function(container,depth0,helpers,partials,data)
 var Backbone = require('backbone');
 
 var ChoseView = Backbone.View.extend({
-    template: '<h1>Welcome to Munich Cinema</h1>\
-               <h2>Please choose a movie</h2>',
+    template: '<h1>Welcome to Munich Cinema</h1>' +
+              '<h2>Please choose a movie</h2>',
     className: 'details',
 
     render: function() {
@@ -26837,7 +26837,7 @@ var ControlsView = Backbone.View.extend({
     
     filterByCategory: function(genre) {
         var filtered = this.movies.filter(function(m) {
-            return (_.indexOf(m.get('genres'), genre) !== -1)
+            return (_.indexOf(m.get('genres'), genre) !== -1);
         });
         this.collection.reset(filtered);
     }
@@ -26850,8 +26850,8 @@ var Backbone = require('backbone');
 
 var DetailsView = Backbone.View.extend({
     el: '#details',
-    template: _.template('<h1><%= showtimeFormatted %> - <%= title %> </h1>\
-                          <br><br> <%= description %>'),
+    template: _.template('<h1><%= showtimeFormatted %> - <%= title %> </h1>' +
+                         '<br><br> <%= description %>'),
 
     render: function() {
         var showtime = moment(showtime).format("DD-MMMM HH:MM");
@@ -26875,15 +26875,15 @@ var GenresView = Backbone.View.extend({
 
     render: function() {
         var template = Handlebars.compile(
-            '<p>Filter</p>\
-            <select name="genre">\
-                {{#each genres}}\
-                <option value="{{ this }}">\
-                    {{ this }}\
-                </option>\
-                {{/each}}\
-            </ul>\
-            </select>'
+            '<p>Filter</p>' +
+            '<select name="genre">' +
+            '{{#each genres}}' +
+            '<option value="{{ this }}">' +
+            '{{ this }}' +
+            '</option>' +
+            '{{/each}}' +
+            '</ul>' +
+            '</select>'
          );
          var html = template({genres: this.genres});
 
@@ -26906,21 +26906,22 @@ var GenresFilter = require('./genresFilter');
 
 var Layout = Backbone.View.extend({
 
-    template: _.template('           \
-               <header>              \
-                 <nav id="controls"> \
-                   <button id="by_title">By Title</button>       \
-                   <button id="by_rating">By Rating</button>     \
-                   <button id="by_showtime">By Showtime</button> \
-                   <div id="filter"></div>    \
-                 </nav>              \
-               </header>             \
-               <div id="overview">   \
-               </div>                \
-               <div id="details">    \
-               </div>'),
+    template: _.template(
+        '<header>' +
+        '<nav id="controls">' +
+        '<button id="by_title">By Title</button>' +
+        '<button id="by_rating">By Rating</button>' +
+        '<button id="by_showtime">By Showtime</button>' +
+        '<div id="filter"></div>' +
+        '</nav>' +
+        '</header>' +
+        '<div id="overview">' +
+        '</div>' +
+        '<div id="details">' +
+        '</div>'
+    ),
 
-    initialize: function(options) {
+    initialize: function (options) {
         this.controls = new Controls({
             collection: options.router.movies,
             superset: new Backbone.Collection(options.router.movies.toJSON())
@@ -26934,7 +26935,7 @@ var Layout = Backbone.View.extend({
         this.currentDetails = new ChoseView();
     },
 
-    render: function() {
+    render: function () {
         this.$el.html(this.template());
         this.controls.setElement(this.$('#controls'));
         this.genresFilter.setElement(this.$('#filter')).render();
@@ -26944,14 +26945,14 @@ var Layout = Backbone.View.extend({
         return this;
     },
 
-    setDetails: function(movie) {
-        if (this.currentDetails) this.currentDetails.remove();
-        this.currentDetails = new DetailsView({model: movie});
+    setDetails: function (movie) {
+        if (this.currentDetails) { this.currentDetails.remove(); }
+        this.currentDetails = new DetailsView({ model: movie });
         this.render();
     },
 
-    setChose: function() {
-        if (this.currentDetails) this.currentDetails.remove();
+    setChose: function () {
+        if (this.currentDetails) { this.currentDetails.remove(); }
         this.currentDetails = new ChoseView();
         this.render();
     }
@@ -26959,7 +26960,7 @@ var Layout = Backbone.View.extend({
 });
 
 var instance;
-Layout.getInstance = function(options) {
+Layout.getInstance = function (options) {
     if (!instance) {
         instance = new Layout({
             el: options.el,
@@ -26968,7 +26969,8 @@ Layout.getInstance = function(options) {
         });
     }
     return instance;
-}
+};
+
 module.exports = Layout;
 
 },{"./chose":55,"./controls":56,"./details":57,"./genresFilter":58,"./moviesList":61,"backbone":3,"underscore":48}],60:[function(require,module,exports){
@@ -27035,7 +27037,7 @@ MoviesList.getInstance = function(options) {
         instance = new MoviesList({el: options.el, collection: options.collection, router: options.router});
     }
     return instance;
-}
+};
 
 module.exports = MoviesList;
 

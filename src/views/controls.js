@@ -40,7 +40,7 @@ var ControlsView = Backbone.View.extend({
     
     filterByCategory: function(genre) {
         var filtered = this.movies.filter(function(m) {
-            return (_.indexOf(m.get('genres'), genre) !== -1)
+            return (_.indexOf(m.get('genres'), genre) !== -1);
         });
         this.collection.reset(filtered);
     }

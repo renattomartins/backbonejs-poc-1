@@ -54,7 +54,7 @@ module.exports = function (grunt) {
             gruntfile: {
                 src: 'Gruntfile.js',
             },
-            all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
+            all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js', '!src/templates/compiledTemplates.js']
         }
     });
 

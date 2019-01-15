@@ -25,7 +25,7 @@ var MoviesRouter = Backbone.Router.extend({
     },
 
     selectMovie: function(id) {
-        this.movies.unselectAll()
+        this.movies.unselectAll();
         this.movies.select(id);
         this.layout.setDetails(this.movies.get(id));
     },
