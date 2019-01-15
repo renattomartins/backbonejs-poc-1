@@ -1,0 +1,9 @@
+<p>Filter</p>
+<select name="genre">
+    <% _.each(genres, function(name) { %>
+    <option value="<%= name %>">
+        <%= name %>
+    </option>
+    <% }) %>
+</ul>
+</select>

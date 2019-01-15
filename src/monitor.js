@@ -10,5 +10,5 @@ var Monitor = function(collection) {
         var date = new Date();
         return '[' + date.toLocaleTimeString() + '.' + date.getMilliseconds() + '] ' + message;
     }
-}
+};
 module.exports = Monitor;
