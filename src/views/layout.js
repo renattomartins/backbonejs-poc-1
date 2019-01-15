@@ -14,18 +14,6 @@ var Layout = Backbone.View.extend({
                    <button id="by_title">By Title</button>       \
                    <button id="by_rating">By Rating</button>     \
                    <button id="by_showtime">By Showtime</button> \
-                   <p>Filter</p>             \
-                   <select name="genre">     \
-                     <option value="all">    \
-                       All                   \
-                     </option>               \
-                     <option value="Drama">  \
-                       Drama                 \
-                     </option>               \
-                     <option value="Action"> \
-                       Action                \
-                     </option>               \
-                   </select>                 \
                    <div id="filter"></div>    \
                  </nav>              \
                </header>             \
@@ -39,21 +27,21 @@ var Layout = Backbone.View.extend({
             collection: options.router.movies,
             superset: new Backbone.Collection(options.router.movies.toJSON())
         });
+        this.genresFilter = new GenresFilter();
         this.overview = new MoviesList({
             el: options.el,
             collection: options.router.movies,
             router: options.router
         });
         this.currentDetails = new ChoseView();
-        this.genresFilter = new GenresFilter();
     },
 
     render: function() {
         this.$el.html(this.template());
         this.controls.setElement(this.$('#controls'));
+        this.genresFilter.setElement(this.$('#filter')).render();
         this.currentDetails.setElement(this.$('#details')).render();
         this.overview.setElement(this.$('#overview')).render();
-        this.genresFilter.setElement(this.$('#filter')).render();
 
         return this;
     },

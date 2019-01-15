@@ -7,7 +7,7 @@ var GenresView = Backbone.View.extend({
     template: genresTemplate,
 
     initialize: function() {
-        this.genres = ['Action', 'Drama', 'Comedy'];
+        this.genres = ['All', 'Action', 'Drama', 'Comedy'];
     },
 
     render: function() {

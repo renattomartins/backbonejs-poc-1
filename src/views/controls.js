@@ -29,7 +29,7 @@ var ControlsView = Backbone.View.extend({
     selectGenre: function(ev) {
         var genre = $("select[name='genre']").val();
         var that = this;
-        if (genre === "all") {
+        if (genre === "All") {
             that.collection.reset(that.superset.toJSON());
         }
         else {
