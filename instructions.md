@@ -203,3 +203,23 @@
         1. [x]
     4. Backbone.obscura
         1. [x]
+
+## Chapter 6 - Advanced View Tamplates
+    1. Views and Templates
+        1. JST
+            1. `$ npm i --save-dev jstify`
+            1. `$ mkdir app/templates`
+            1. Create the `src/templates/genres.html.jst` file
+            1. Create the `src/views/genresFilter.js` file
+            1. Define a new way to run: `browserify src/main.js -t jstify > public/bundle.js` and `watchify src/main.js -t jstify -o public/bundle.js -v`
+            1. Make some adjusts in layout.js to bind the new view
+        1. Build Automation
+            1. `$ npm i -g grunt-cli`
+            1. `$ npm i grunt --save-dev`
+            1. `$ npm uninstall jstify
+            1. Remove all dependencies and referencies to GenresFilter view
+            1. `$ npm i --save-dev grunt-browserify grunt-contrib-watch grunt-contrib-handlebars`
+            1. `$ npm i --save handlebars`
+            1. Creates a Gruntfile.js and copy content of pages 79-80
+            1. `$ npm i --save-dev jslint`
+            1. `$ npm i --save-dev grunt-contrib-jshint`

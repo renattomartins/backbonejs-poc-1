@@ -4,8 +4,8 @@ var Backbone = require('backbone');
 
 var DetailsView = Backbone.View.extend({
     el: '#details',
-    template: _.template('<h1><%= showtimeFormatted %> - <%= title %> </h1>\
-                          <br><br> <%= description %>'),
+    template: _.template('<h1><%= showtimeFormatted %> - <%= title %> </h1>' +
+                         '<br><br> <%= description %>'),
 
     render: function() {
         var showtime = moment(showtime).format("DD-MMMM HH:MM");
