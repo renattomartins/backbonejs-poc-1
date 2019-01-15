@@ -46,21 +46,30 @@ module.exports = function (grunt) {
                 src: "src/templates/**/*.hbs",
                 dest: "src/templates/compiledTemplates.js"
             }
+        },
+        jshint: {
+            options: {
+                curly: true
+            },
+            gruntfile: {
+                src: 'Gruntfile.js',
+            },
+            all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
         }
     });
-
-
-    grunt.registerTask('compile', ['handlebars', 'browserify']);
-
-    // Run the server and watch for file changes
-    grunt.registerTask('server', ['compile', 'runNode', 'watch']);
-
-    // Default task
-    grunt.registerTask('default', ['compile']);
 
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+
+    // Run the server and watch for file changes
+    grunt.registerTask('server', ['compile', 'runNode', 'watch']);
+
+    // Run the simple compile task (bundle)
+    grunt.registerTask('compile', ['handlebars', 'browserify']);
+
+    // Run nodemon
     grunt.registerTask('runNode', function () {
         grunt.util.spawn({
             cmd: 'node',
@@ -72,4 +81,7 @@ module.exports = function (grunt) {
             grunt.fail.fatal(new Error("nodemon quit"));
         });
     });
+
+    // Default task
+    grunt.registerTask('default', ['compile']);
 };

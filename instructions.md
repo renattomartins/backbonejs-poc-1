@@ -222,3 +222,4 @@
             1. `$ npm i --save handlebars`
             1. Creates a Gruntfile.js and copy content of pages 79-80
             1. `$ npm i --save-dev jslint`
+            1. `$ npm i --save-dev grunt-contrib-jshint`
