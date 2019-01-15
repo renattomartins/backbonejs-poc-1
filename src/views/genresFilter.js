@@ -1,5 +1,6 @@
 var Backbone = require('backbone');
 var Handlebars = require('handlebars');
+var Templates = require('../templates/compiledTemplates')(Handlebars);
 
 // The UI for selecting a Movie Category
 var GenresView = Backbone.View.extend({
@@ -9,21 +10,7 @@ var GenresView = Backbone.View.extend({
     },
 
     render: function() {
-        var template = Handlebars.compile(
-            '<p>Filter</p>' +
-            '<select name="genre">' +
-            '{{#each genres}}' +
-            '<option value="{{ this }}">' +
-            '{{ this }}' +
-            '</option>' +
-            '{{/each}}' +
-            '</ul>' +
-            '</select>'
-         );
-         var html = template({genres: this.genres});
-
-
-        this.$el.html( html );
+        this.$el.html( Templates({genres: this.genres}) );
         return this;
     }
     

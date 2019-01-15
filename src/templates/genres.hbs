@@ -1,9 +1,8 @@
 <p>Filter</p>
 <select name="genre">
     {{#each genres}}
-    <option value="{{ name }}">
-        {{ name }}
+    <option value="{{ this }}">
+        {{ this }}
     </option>
     {{/each}}
-</ul>
 </select>
