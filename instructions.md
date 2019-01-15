@@ -214,8 +214,10 @@
             1. Define a new way to run: `browserify src/main.js -t jstify > public/bundle.js` and `watchify src/main.js -t jstify -o public/bundle.js -v`
             1. Make some adjusts in layout.js to bind the new view
         1. Build Automation
-            1. `$ npm install -g grunt`
+            1. `$ npm i -g grunt-cli`
+            1. `$ npm i grunt --save-dev`
             1. `$ npm uninstall jstify
             1. Remove all dependencies and referencies to GenresFilter view
             1. `$ npm i --save-dev grunt-browserify grunt-contrib-watch grunt-contrib-handlebars`
             1. `$ npm i --save handlebars`
+            1. Creates a Gruntfile.js and copy content of pages 79-80

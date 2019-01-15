@@ -26680,7 +26680,7 @@ $(document).ready(function() {
     });
 });
 
-},{"./routers/movies":52,"backbone":3,"jquery":46}],51:[function(require,module,exports){
+},{"./routers/movies":53,"backbone":3,"jquery":46}],51:[function(require,module,exports){
 var Backbone = require("Backbone");
 var Movie = Backbone.Model.extend({
     defaults: {
@@ -26703,6 +26703,22 @@ var Movie = Backbone.Model.extend({
 module.exports = Movie;
 
 },{"Backbone":2}],52:[function(require,module,exports){
+var _ = require('underscore');
+var Backbone = require('backbone');
+var Monitor = function(collection) {
+    _.extend(this, Backbone.Events);
+    this.listenTo(collection, 'all', function(eventName) {
+        console.log(formatOutput(eventName));
+    });
+
+    function formatOutput(message){
+        var date = new Date();
+        return '[' + date.toLocaleTimeString() + '.' + date.getMilliseconds() + '] ' + message;
+    }
+}
+module.exports = Monitor;
+
+},{"backbone":3,"underscore":48}],53:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 
@@ -26743,7 +26759,27 @@ var MoviesRouter = Backbone.Router.extend({
 
 module.exports = MoviesRouter;
 
-},{"../../movies.json":1,"../collections/movies":49,"../views/layout":57,"backbone":3,"underscore":48}],53:[function(require,module,exports){
+},{"../../movies.json":1,"../collections/movies":49,"../views/layout":59,"backbone":3,"underscore":48}],54:[function(require,module,exports){
+module.exports = function(Handlebars) {
+
+return Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <option value=\""
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "\">\n        "
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "\n    </option>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<p>Filter</p>\n<select name=\"genre\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.genres : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</ul>\n</select>\n";
+},"useData":true});
+
+};
+},{}],55:[function(require,module,exports){
 var Backbone = require('backbone');
 
 var ChoseView = Backbone.View.extend({
@@ -26758,7 +26794,7 @@ var ChoseView = Backbone.View.extend({
 });
 module.exports = ChoseView;
 
-},{"backbone":3}],54:[function(require,module,exports){
+},{"backbone":3}],56:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = Backbone.$;
@@ -26807,7 +26843,7 @@ var ControlsView = Backbone.View.extend({
     }
 });
 module.exports = ControlsView;
-},{"backbone":3,"underscore":48}],55:[function(require,module,exports){
+},{"backbone":3,"underscore":48}],57:[function(require,module,exports){
 var _ = require('underscore');
 var moment = require('moment');
 var Backbone = require('backbone');
@@ -26826,7 +26862,7 @@ var DetailsView = Backbone.View.extend({
 });
 module.exports = DetailsView;
 
-},{"backbone":3,"moment":47,"underscore":48}],56:[function(require,module,exports){
+},{"backbone":3,"moment":47,"underscore":48}],58:[function(require,module,exports){
 var Backbone = require('backbone');
 var Handlebars = require('handlebars');
 
@@ -26859,7 +26895,7 @@ var GenresView = Backbone.View.extend({
 });
 
 module.exports = GenresView;
-},{"backbone":3,"handlebars":34}],57:[function(require,module,exports){
+},{"backbone":3,"handlebars":34}],59:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var MoviesList = require('./moviesList');
@@ -26935,7 +26971,7 @@ Layout.getInstance = function(options) {
 }
 module.exports = Layout;
 
-},{"./chose":53,"./controls":54,"./details":55,"./genresFilter":56,"./moviesList":59,"backbone":3,"underscore":48}],58:[function(require,module,exports){
+},{"./chose":55,"./controls":56,"./details":57,"./genresFilter":58,"./moviesList":61,"backbone":3,"underscore":48}],60:[function(require,module,exports){
 var $ = require('jquery');
 var Backbone = require('backbone');
 var _ = require('underscore');
@@ -26972,7 +27008,7 @@ var MovieView = Backbone.View.extend({
 });
 module.exports = MovieView;
 
-},{"backbone":3,"jquery":46,"underscore":48}],59:[function(require,module,exports){
+},{"backbone":3,"jquery":46,"underscore":48}],61:[function(require,module,exports){
 var Backbone = require('backbone');
 var MovieView = require('./movie'); // The UI for selecting a movie
 var MoviesList = Backbone.View.extend({
@@ -27003,4 +27039,4 @@ MoviesList.getInstance = function(options) {
 
 module.exports = MoviesList;
 
-},{"./movie":58,"backbone":3}]},{},[50]);
+},{"./movie":60,"backbone":3}]},{},[49,50,51,52,53,54,55,56,57,58,59,60,61]);
