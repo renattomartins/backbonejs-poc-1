@@ -228,4 +228,5 @@
     1. Fetching Remote Movies
         1. RESTful Web Services
         1. Mocking an API
-            1. ...
+            1. `$ npm install canned --save-dev`
+            1. (canned doesn't work)
