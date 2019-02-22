@@ -230,3 +230,5 @@
         1. Mocking an API
             1. `$ npm install canned --save-dev`
             1. (canned doesn't work)
+            1. How can I serve a static file from express? And how can I accept post, put and delete requests?
+            1. ...
