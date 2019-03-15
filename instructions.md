@@ -233,3 +233,6 @@
             1. (canned skipped)
             1. (fetch skipped)
             1. (firebase skipped)
+
+## Chapter 8 - Basic API Concerns
+    1. ...
