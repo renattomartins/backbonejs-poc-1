@@ -223,3 +223,13 @@
             1. Creates a Gruntfile.js and copy content of pages 79-80
             1. `$ npm i --save-dev jslint`
             1. `$ npm i --save-dev grunt-contrib-jshint`
+
+## Chapter 7 - Synchronizing State
+    1. Fetching Remote Movies
+        1. RESTful Web Services
+        1. Mocking an API
+            1. `$ npm install canned --save-dev`
+            1. (canned doesn't work)
+            1. (canned skipped)
+            1. (fetch skipped)
+            1. (firebase skipped)
