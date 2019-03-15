@@ -230,7 +230,6 @@
         1. Mocking an API
             1. `$ npm install canned --save-dev`
             1. (canned doesn't work)
-            1. How can I serve a static file from express? And how can I accept post, put and delete requests?
-            1. I discovered the book's github with many codes to finally understand the things!
-            1. Next step: Read again the chapter 7 against the codes execution, to evaluatio if make sense implement it here.
-            1. ...
+            1. (canned skipped)
+            1. (fetch skipped)
+            1. (firebase skipped)
